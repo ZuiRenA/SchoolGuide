@@ -7,6 +7,10 @@ import com.example.schoolguide.BaseActivity
 import com.example.schoolguide.MainActivity
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.intent
+import com.example.schoolguide.util.LoginUtil
+import com.example.schoolguide.util.LoginUtil.Null_String
+import com.example.schoolguide.util.LoginUtil.saveLoginInfo
+import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -19,6 +23,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 this.intent(ForgetPswActivity::class.java)
             }
             R.id.loginBtn -> {
+                saveLoginInfo(loginAccount.text.toString(), loginPassword.text.toString())
                 this.intent(MainActivity::class.java)
                 this.finish()
             }
@@ -29,7 +34,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        MMKV.initialize(this)
         initClick()
+        val loginInfo = LoginUtil.getLoginInfo()
+        if (loginInfo.account != null && loginInfo.password != null) {
+            if (loginInfo.account != Null_String && loginInfo.password != Null_String) {
+                this.intent(MainActivity::class.java)
+                this.finish()
+            }
+        }
     }
 
     private fun initClick() {
