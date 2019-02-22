@@ -2,7 +2,7 @@
     <string name="app_name">SchoolGuide</string>
 
     <string name="assign">确定</string>
-    
+
     <!--login part-->
     <string name="login_account">账号：</string>
     <string name="login_password">密码：</string>
@@ -16,5 +16,8 @@
     <string name="home">首页</string>
     <string name="guide">报到</string>
     <string name="mine">我的</string>
-    
+
+    <!--mine-->
+    <string name="person_data">个人资料</string>
+    <string name="setting">设置</string>
 </resources>

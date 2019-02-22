@@ -9,6 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".mine.SettingActivity">
+        </activity>
+        <activity android:name=".mine.PersonDataActivity">
+        </activity>
         <activity android:name=".login.ForgetPswActivity">
         </activity>
         <activity android:name=".login.RegisterActivity">

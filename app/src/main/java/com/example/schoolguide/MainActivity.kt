@@ -45,9 +45,9 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
 
     private fun attachBar() {
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_DEFAULT )
-        bottomNavigationBar.addItem(BottomNavigationItem(R.drawable.home_menu_11, resources.getString(R.string.home)).setActiveColorResource(R.color.colorPrimaryDark))
-            .addItem(BottomNavigationItem(R.drawable.home_menu_12, resources.getString(R.string.guide)).setActiveColorResource(R.color.colorPrimaryDark))
-            .addItem(BottomNavigationItem(R.drawable.home_menu_13, resources.getString(R.string.mine)).setActiveColorResource(R.color.colorPrimaryDark))
+        bottomNavigationBar.addItem(BottomNavigationItem(R.drawable.home_menu_11, resources.getString(R.string.home)).setActiveColorResource(R.color.loginMain))
+            .addItem(BottomNavigationItem(R.drawable.home_menu_12, resources.getString(R.string.guide)).setActiveColorResource(R.color.loginMain))
+            .addItem(BottomNavigationItem(R.drawable.home_menu_13, resources.getString(R.string.mine)).setActiveColorResource(R.color.loginMain))
             .initialise()
     }
 
