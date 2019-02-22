@@ -12,9 +12,16 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id) {
-            R.id.loginRegister ->{  }
-            R.id.loginForgetPassword -> {   }
-            R.id.loginBtn -> { this.intent(MainActivity::class.java) }
+            R.id.loginRegister ->{
+                this.intent(RegisterActivity::class.java)
+            }
+            R.id.loginForgetPassword -> {
+                this.intent(ForgetPswActivity::class.java)
+            }
+            R.id.loginBtn -> {
+                this.intent(MainActivity::class.java)
+                this.finish()
+            }
         }
     }
 

@@ -1,12 +1,68 @@
 package com.example.schoolguide
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.ashokvarma.bottomnavigation.BottomNavigationBar
+import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.example.schoolguide.main.GuideFragment
+import com.example.schoolguide.main.HomeFragment
+import com.example.schoolguide.main.MineFragment
 
-class MainActivity : BaseActivity(){
+class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
+
+    private lateinit var bottomNavigationBar: BottomNavigationBar
+    private lateinit var fragmentHome: HomeFragment
+    private lateinit var fragmentGuide: GuideFragment
+    private lateinit var fragmentMine: MineFragment
+
+    private  var lastSelectedPosition = 0
+
+    companion object {
+        private const val Home = 0
+        private const val Guide = 1
+        private const val Mine = 2
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        fragmentHome = HomeFragment.newInstance()
+        fragmentGuide = GuideFragment.newInstance()
+        fragmentMine = MineFragment.newInstance()
+
+        bottomNavigationBar  = findViewById(R.id.bottom_navigation_bar)
+        attachBar()
+        bottomNavigationBar.setTabSelectedListener(this)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_activity_frag_container, fragmentHome)
+                .commit()
+
+            bottomNavigationBar.setFirstSelectedPosition(lastSelectedPosition)
+        }
+    }
+
+    private fun attachBar() {
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_DEFAULT )
+        bottomNavigationBar.addItem(BottomNavigationItem(R.drawable.home_menu_11, resources.getString(R.string.home)).setActiveColorResource(R.color.colorPrimaryDark))
+            .addItem(BottomNavigationItem(R.drawable.home_menu_12, resources.getString(R.string.guide)).setActiveColorResource(R.color.colorPrimaryDark))
+            .addItem(BottomNavigationItem(R.drawable.home_menu_13, resources.getString(R.string.mine)).setActiveColorResource(R.color.colorPrimaryDark))
+            .initialise()
+    }
+
+    override fun onTabReselected(position: Int) {   }
+
+    override fun onTabUnselected(position: Int) {   }
+
+    override fun onTabSelected(position: Int) {
+        val fragmentManager = supportFragmentManager.beginTransaction()
+        lastSelectedPosition = position
+        when(position) {
+            Home -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentHome) }
+            Guide -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentGuide) }
+            Mine -> {  fragmentManager.replace(R.id.main_activity_frag_container, fragmentMine) }
+        }
+        fragmentManager.commit()
     }
 }
