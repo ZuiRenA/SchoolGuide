@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#C9C4C4</color>
     <color name="colorAccent">#D81B60</color>
     <color name="loginBackgroundBlue">#00BFFF</color>
+    <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="loginMain">#fd6702</color>

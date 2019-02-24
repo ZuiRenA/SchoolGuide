@@ -7,27 +7,21 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.schoolguide.BaseFragment
 
 import com.example.schoolguide.R
+import com.youth.banner.BannerConfig
+import com.youth.banner.Transformer
+import com.youth.banner.loader.ImageLoader
+import kotlinx.android.synthetic.main.fragment_home.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [HomeFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class HomeFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var listener: OnFragmentInteractionListener? = null
+    private lateinit var imageList: MutableList<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +33,29 @@ class HomeFragment : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        imageList = mutableListOf(R.drawable.blhx_01, R.drawable.blhx_02, R.drawable.blhx_03, R.drawable.blhx_04)
+
+        //设置Home页面Banner的各项属性
+        //各项属性详见：https://github.com/youth5201314/banner
+        homeBanner.setImageLoader(GlideImageLoader())
+        homeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+        homeBanner.setImages(imageList)
+        homeBanner.setBannerAnimation(Transformer.Default)
+        homeBanner.setDelayTime(3000)
+        homeBanner.setIndicatorGravity(BannerConfig.CENTER)
+        homeBanner.setOnBannerListener { position ->
+            Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
+        }
+        homeBanner.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        homeBanner.stopAutoPlay()
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -79,5 +96,14 @@ class HomeFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance() = HomeFragment()
+    }
+}
+
+class GlideImageLoader() : ImageLoader() {
+    override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+        if (context != null && imageView != null) {
+            Glide.with(context).load(path)
+                .into(imageView)
+        }
     }
 }

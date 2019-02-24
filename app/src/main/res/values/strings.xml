@@ -2,6 +2,7 @@
     <string name="app_name">SchoolGuide</string>
 
     <string name="assign">确定</string>
+    <string name="skip">跳过</string>
 
     <!--login part-->
     <string name="login_account">账号：</string>

@@ -50,4 +50,7 @@ dependencies {
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'com.tencent:mmkv:1.0.17'
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+    implementation 'com.youth.banner:banner:1.4.10'
 }

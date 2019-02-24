@@ -34,15 +34,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        MMKV.initialize(this)
+
         initClick()
-        val loginInfo = LoginUtil.getLoginInfo()
-        if (loginInfo.account != null && loginInfo.password != null) {
-            if (loginInfo.account != Null_String && loginInfo.password != Null_String) {
-                this.intent(MainActivity::class.java)
-                this.finish()
-            }
-        }
     }
 
     private fun initClick() {
