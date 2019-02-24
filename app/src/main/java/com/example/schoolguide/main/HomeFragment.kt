@@ -1,22 +1,24 @@
 package com.example.schoolguide.main
 
+import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.schoolguide.BaseFragment
-
 import com.example.schoolguide.R
+import com.github.piasy.biv.BigImageViewer
+import com.github.piasy.biv.view.BigImageView
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 class HomeFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
@@ -24,6 +26,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var imageList: MutableList<Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        BigImageViewer.initialize(com.github.piasy.biv.loader.glide.GlideImageLoader.with(context))
         super.onCreate(savedInstanceState)
     }
 
@@ -38,7 +41,6 @@ class HomeFragment : BaseFragment() {
     override fun onStart() {
         super.onStart()
         imageList = mutableListOf(R.drawable.blhx_01, R.drawable.blhx_02, R.drawable.blhx_03, R.drawable.blhx_04)
-
         //设置Home页面Banner的各项属性
         //各项属性详见：https://github.com/youth5201314/banner
         homeBanner.setImageLoader(GlideImageLoader())
@@ -48,9 +50,28 @@ class HomeFragment : BaseFragment() {
         homeBanner.setDelayTime(3000)
         homeBanner.setIndicatorGravity(BannerConfig.CENTER)
         homeBanner.setOnBannerListener { position ->
-            Toast.makeText(context, "$position", Toast.LENGTH_SHORT).show()
+            showDialog()
         }
         homeBanner.start()
+    }
+
+    private fun showDialog() {
+        val dialog = Dialog(context!!, R.style.HomeBigImgDialogTheme)
+        val view = View.inflate(context, R.layout.home_image_dialog, null)
+        val image = view.findViewById<BigImageView>(R.id.homeBigImage)
+        val finish = view.findViewById<ImageView>(R.id.homeBigImageFinish)
+        dialog.setContentView(view)
+        image.showImage(Uri.parse("https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2871066900,1607816866&fm=175&app=25&f=JPEG?w=640&h=903&s=7F48A357899947DC4631F9EE0300E031"))
+
+        val window = dialog.window
+        window?.let {
+            window.setGravity(Gravity.CENTER)
+            window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        }
+
+        finish.setOnClickListener { dialog.dismiss() }
+        image.setOnClickListener { dialog.dismiss() }
+        dialog.show()
     }
 
     override fun onStop() {

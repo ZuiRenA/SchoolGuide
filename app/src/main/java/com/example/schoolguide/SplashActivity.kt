@@ -9,7 +9,9 @@ import com.example.schoolguide.login.LoginActivity
 import com.example.schoolguide.util.LoginUtil
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_splash.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +19,6 @@ class SplashActivity : BaseActivity() {
         setContentView(R.layout.activity_splash)
 
         MMKV.initialize(this)
-
 
         splashImg.visibility = View.VISIBLE
         Glide.with(this).load(R.mipmap.gif_02)
