@@ -1,16 +1,12 @@
 package com.example.schoolguide.login
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.schoolguide.BaseActivity
+import com.example.schoolguide.view.BaseActivity
 import com.example.schoolguide.MainActivity
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.intent
-import com.example.schoolguide.util.LoginUtil
-import com.example.schoolguide.util.LoginUtil.Null_String
 import com.example.schoolguide.util.LoginUtil.saveLoginInfo
-import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {

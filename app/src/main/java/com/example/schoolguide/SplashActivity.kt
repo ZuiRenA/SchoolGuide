@@ -7,6 +7,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.login.LoginActivity
 import com.example.schoolguide.util.LoginUtil
+import com.example.schoolguide.view.BaseActivity
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.GlobalScope

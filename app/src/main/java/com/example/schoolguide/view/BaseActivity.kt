@@ -1,4 +1,4 @@
-package com.example.schoolguide
+package com.example.schoolguide.view
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

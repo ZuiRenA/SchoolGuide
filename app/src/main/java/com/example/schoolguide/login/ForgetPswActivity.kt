@@ -1,8 +1,7 @@
 package com.example.schoolguide.login
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.schoolguide.BaseActivity
+import com.example.schoolguide.view.BaseActivity
 import com.example.schoolguide.R
 
 class ForgetPswActivity : BaseActivity() {

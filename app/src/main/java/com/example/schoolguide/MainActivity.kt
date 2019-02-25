@@ -6,6 +6,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.example.schoolguide.main.GuideFragment
 import com.example.schoolguide.main.HomeFragment
 import com.example.schoolguide.main.MineFragment
+import com.example.schoolguide.view.BaseActivity
 
 class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
 

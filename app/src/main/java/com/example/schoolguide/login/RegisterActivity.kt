@@ -1,11 +1,10 @@
 package com.example.schoolguide.login
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
-import com.example.schoolguide.BaseActivity
+import com.example.schoolguide.view.BaseActivity
 import com.example.schoolguide.R
 import kotlinx.android.synthetic.main.activity_register.*
 

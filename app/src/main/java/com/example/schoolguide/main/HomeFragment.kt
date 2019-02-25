@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.example.schoolguide.BaseFragment
+import com.example.schoolguide.view.BaseFragment
 import com.example.schoolguide.R
 import com.github.piasy.biv.BigImageViewer
 import com.github.piasy.biv.view.BigImageView
