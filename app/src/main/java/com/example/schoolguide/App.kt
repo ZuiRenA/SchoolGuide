@@ -5,13 +5,6 @@ import com.tencent.mmkv.MMKV
 import kotlin.properties.Delegates
 
 class App: Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        MMKV.initialize(this)
-        appContext = this
-    }
-
     companion object {
         var instance: App by Delegates.notNull()
 
@@ -21,4 +14,11 @@ class App: Application() {
         @JvmStatic
         fun getAppContext(): Application? = appContext
     }
+
+    override fun onCreate() {
+        super.onCreate()
+        MMKV.initialize(this)
+        appContext = this
+    }
+
 }

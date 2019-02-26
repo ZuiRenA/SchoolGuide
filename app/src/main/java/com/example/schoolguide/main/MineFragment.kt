@@ -1,5 +1,6 @@
 package com.example.schoolguide.main
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -14,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.example.schoolguide.App
 import com.example.schoolguide.view.BaseFragment
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.intent

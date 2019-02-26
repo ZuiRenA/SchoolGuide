@@ -3,6 +3,7 @@ package com.example.schoolguide
 import android.os.Bundle
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
+import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.main.GuideFragment
 import com.example.schoolguide.main.HomeFragment
 import com.example.schoolguide.main.MineFragment
@@ -62,7 +63,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         when(position) {
             Home -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentHome) }
             Guide -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentGuide) }
-            Mine -> {  fragmentManager.replace(R.id.main_activity_frag_container, fragmentMine) }
+            Mine -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentMine) }
         }
         fragmentManager.commit()
     }

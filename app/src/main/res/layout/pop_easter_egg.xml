@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+
+    <ImageView
+            android:id="@+id/bgEaster"
+            android:background="@drawable/easter_egg"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="20dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="20dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+            android:text="你确定你还要拒绝吗???"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/bgEaster" app:layout_constraintEnd_toEndOf="@+id/bgEaster"
+            android:layout_marginTop="20dp" app:layout_constraintTop_toTopOf="@+id/bgEaster"/>
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="@+id/bgEaster" app:layout_constraintStart_toStartOf="@+id/bgEaster"
+            app:layout_constraintBottom_toBottomOf="@+id/bgEaster">
+
+        <TextView
+                android:id="@+id/juJueEaster"
+                android:text="但是，我拒绝"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+
+        <TextView
+                android:id="@+id/assignEaster"
+                android:text="我同意"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_width="0dp"
+                android:layout_weight="1" android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
