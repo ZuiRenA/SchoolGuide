@@ -19,8 +19,6 @@ class SplashActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        MMKV.initialize(this)
-
         splashImg.visibility = View.VISIBLE
         Glide.with(this).load(R.mipmap.gif_02)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
