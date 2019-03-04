@@ -32,6 +32,10 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -74,5 +78,10 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
     implementation 'pub.devrel:easypermissions:2.0.1'
-   implementation 'com.github.sd6352051:NiftyDialogEffects:v1.0.3'
+    implementation 'com.github.sd6352051:NiftyDialogEffects:v1.0.3'
+    implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+
+
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-20'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-20'//没有使用特殊Header，可以不加这行
 }

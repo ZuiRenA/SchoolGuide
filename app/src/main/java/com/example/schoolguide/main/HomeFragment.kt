@@ -50,6 +50,7 @@ class HomeFragment : BaseFragment() {
         homeBanner.setDelayTime(3000)
         homeBanner.setIndicatorGravity(BannerConfig.CENTER)
         homeBanner.setOnBannerListener { position ->
+            //TODO(): user$position TO show imageList
             showDialog()
         }
         homeBanner.start()

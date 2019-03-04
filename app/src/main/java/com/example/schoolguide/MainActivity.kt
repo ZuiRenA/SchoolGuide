@@ -65,6 +65,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
             Guide -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentGuide) }
             Mine -> { fragmentManager.replace(R.id.main_activity_frag_container, fragmentMine) }
         }
+
         fragmentManager.commit()
     }
 }

@@ -22,7 +22,10 @@ import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.mine.SettingActivity
 import com.example.schoolguide.model.Mine
+import com.scwang.smartrefresh.header.WaveSwipeHeader
+import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 
 /**
@@ -58,6 +61,10 @@ class MineFragment : BaseFragment() {
         super.onStart()
         item = listOf(Mine(R.drawable.mine_person_data, resources.getString(R.string.person_data)),
             Mine(R.drawable.mine_setting, resources.getString(R.string.setting)))
+
+        refreshMine.setOnRefreshListener {
+            it.finishRefresh(2000, false)
+        }
 
         initAdapter()
     }
@@ -97,6 +104,8 @@ class MineFragment : BaseFragment() {
         Glide.with(this).load(R.drawable.test_avatar_icon)
             .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
             .into(view.mine_avatar_bg)
+
+        view.refreshMine.setRefreshHeader(ClassicsHeader(context))
         return view
     }
 
