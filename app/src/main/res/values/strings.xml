@@ -25,6 +25,8 @@
     <!--mine-->
     <string name="person_data">个人资料</string>
     <string name="setting">设置</string>
+    <string name="take_photo">拍照</string>
+    <string name="choice_photo">从相册中选取</string>
 
     <!--guide-->
     <string name="guide_time">选择报到时间</string>
