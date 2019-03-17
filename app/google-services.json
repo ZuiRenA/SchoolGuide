@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "109550150680",
+    "firebase_url": "https://linear-poet-233715.firebaseio.com",
+    "project_id": "linear-poet-233715",
+    "storage_bucket": "linear-poet-233715.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109550150680:android:2a894697c92991f6",
+        "android_client_info": {
+          "package_name": "com.example.schoolguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109550150680-snf2aqrcbc9rrbga5vthhf2pv8p461fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3t2jSRa_joAFnB7NW6Ik07vuoYQwZ7_E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,9 +9,9 @@ import android.widget.Toast
  * 使用方法: this.toast(message) / context.toast(message)
  */
 fun Activity.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+    Toast.makeText(applicationContext, message, duration).show()
 }
 
 fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, message, duration).show()
+    Toast.makeText(applicationContext, message, duration).show()
 }

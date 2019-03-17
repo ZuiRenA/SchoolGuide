@@ -1,10 +1,11 @@
 package com.example.schoolguide
 
 import android.app.Application
+import com.google.firebase.storage.FirebaseStorage
 import com.tencent.mmkv.MMKV
 import kotlin.properties.Delegates
 
-class App: Application() {
+class App : Application() {
     companion object {
         var instance: App by Delegates.notNull()
 
@@ -14,6 +15,7 @@ class App: Application() {
         @JvmStatic
         fun getAppContext(): Application? = appContext
     }
+
 
     override fun onCreate() {
         super.onCreate()

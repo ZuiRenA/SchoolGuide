@@ -1,13 +1,8 @@
 package com.example.schoolguide
 
 import android.Manifest
-import android.Manifest.permission.*
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.schoolguide.extUtil.intent
@@ -24,9 +19,6 @@ import pub.devrel.easypermissions.AfterPermissionGranted
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 import pub.devrel.easypermissions.PermissionRequest
-import android.os.StrictMode
-import android.os.Build
-
 
 
 class SplashActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {

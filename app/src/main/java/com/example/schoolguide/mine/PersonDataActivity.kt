@@ -7,29 +7,34 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupWindow
-import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.schoolguide.R
+import com.example.schoolguide.extUtil.toast
 import com.example.schoolguide.util.*
 import com.example.schoolguide.view.BaseActivity
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_person_data.*
-import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.io.FileNotFoundException
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
+import com.google.firebase.storage.UploadTask
 
 class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var popupWindow: PopupWindow
     private lateinit var imagePickUtil: ImagePickUtil
-
+    private lateinit var storageRef: StorageReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_data)
         imagePickUtil = ImagePickUtil(this)
+        storageRef = FirebaseStorage.getInstance().reference
 
         initView()
         initClick()
@@ -37,6 +42,7 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
     private fun initClick() {
         personDataAvatar.setOnClickListener(this)
+        baseToolbarTV.setOnClickListener(this)
     }
 
     private fun initView() {
@@ -49,6 +55,30 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.personDataAvatar -> {
                 openPopUpWindow()
+            }
+
+            R.id.baseToolbarTV -> {
+                imagePickUtil.mImageUri?.let { uri ->
+                    val file = Uri.fromFile(File(uri.path))
+                    val imageRef = storageRef.child("picture/${file.lastPathSegment}")
+                    val uploadTask = imageRef.putFile(file)
+
+                    val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                        if (!task.isSuccessful) {
+                            task.exception?.let {
+                                throw it
+                            }
+                        }
+                        return@Continuation imageRef.downloadUrl
+                    }).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val downloadUri = task.result
+                            this.toast(downloadUri.toString())
+                        } else {
+                            this.toast("上传失败")
+                        }
+                    }
+                }
             }
         }
     }
@@ -94,26 +124,28 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
         if (resultCode != Activity.RESULT_OK)
             return
-        when(requestCode){
-            REQUESTCODE_TAKE ->{
+        when (requestCode) {
+            REQUESTCODE_TAKE -> {
                 val temp = File(externalCacheDir, HEAD_ICON_NAME)
                 imagePickUtil.startPhotoZoom(Uri.fromFile(temp))
             }
-            REQUESTCODE_PICK ->{
+            REQUESTCODE_PICK -> {
                 data?.data?.let {
                     imagePickUtil.startPhotoZoom(it)
                 }
             }
-            REQUESTCODE_CUTTING ->{
+            REQUESTCODE_CUTTING -> {
                 try {
-                    imagePickUtil.mImageUri?.let {
-                        val bitmap = BitmapFactory.decodeStream(contentResolver
-                            .openInputStream(it))
+                    imagePickUtil.mImageUri?.let { uri ->
+                        val bitmap = BitmapFactory.decodeStream(
+                            contentResolver
+                                .openInputStream(uri)
+                        )
                         Glide.with(this).load(bitmap)
                             .apply(RequestOptions.bitmapTransform(CircleCrop()))
                             .into(personDataAvatar)
                     }
-                }catch (e: FileNotFoundException){
+                } catch (e: FileNotFoundException) {
                     e.printStackTrace()
                 }
             }

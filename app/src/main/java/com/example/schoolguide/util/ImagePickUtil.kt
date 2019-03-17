@@ -51,8 +51,8 @@ class ImagePickUtil(var context: Activity) {
         intent.putExtra("aspectX", 1)
         intent.putExtra("aspectY", 1)
         // outputX outputY 是裁剪图片宽高，这里可以将宽高作为参数传递进来
-        intent.putExtra("outputX", 1024)
-        intent.putExtra("outputY", 1024)
+        intent.putExtra("outputX", 600)
+        intent.putExtra("outputY", 600)
 
         // 其实加上下面这两句就可以实现基本功能，
         //但是这样做我们会直接得到图片的数据，以bitmap的形式返回，在Intent中。而Intent传递数据大小有限制，1kb=1024字节，这样就对最后的图片的像素有限制。
