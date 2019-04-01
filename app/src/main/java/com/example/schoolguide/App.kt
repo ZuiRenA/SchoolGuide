@@ -21,6 +21,7 @@ class App : Application() {
         super.onCreate()
         MMKV.initialize(this)
         appContext = this
+        instance = this
     }
 
 }

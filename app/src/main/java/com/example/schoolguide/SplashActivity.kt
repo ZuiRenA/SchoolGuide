@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.login.LoginActivity
 import com.example.schoolguide.util.LoginUtil
+import com.example.schoolguide.util.LoginUtil.Null_String
 import com.example.schoolguide.view.BaseActivity
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.activity_splash.*
@@ -46,7 +47,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
 
     private fun getLoginInfoTodo() {
         val loginInfo = LoginUtil.getLoginInfo()
-        if (loginInfo.account != null && loginInfo.password != null) {
+        if (loginInfo.account != null && loginInfo.password != null && loginInfo.account != Null_String && loginInfo.password != Null_String) {
             intent(MainActivity::class.java)
             finish()
         } else {

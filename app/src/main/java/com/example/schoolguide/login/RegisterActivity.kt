@@ -25,7 +25,9 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
                 }
             }
 
-            R.id.registerBtn -> {   }
+            R.id.registerBtn -> {
+
+            }
         }
     }
 

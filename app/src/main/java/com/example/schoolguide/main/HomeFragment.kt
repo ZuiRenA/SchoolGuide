@@ -1,9 +1,12 @@
 package com.example.schoolguide.main
 
 import android.app.Dialog
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +15,8 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.schoolguide.view.BaseFragment
 import com.example.schoolguide.R
+import com.example.schoolguide.extUtil.toast
+import com.example.schoolguide.model.Id
 import com.github.piasy.biv.BigImageViewer
 import com.github.piasy.biv.view.BigImageView
 import com.youth.banner.BannerConfig
@@ -24,6 +29,7 @@ class HomeFragment : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var imageList: MutableList<Int>
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BigImageViewer.initialize(com.github.piasy.biv.loader.glide.GlideImageLoader.with(context))
@@ -35,6 +41,7 @@ class HomeFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -54,6 +61,21 @@ class HomeFragment : BaseFragment() {
             showDialog()
         }
         homeBanner.start()
+
+
+        viewModel.schoolInfoLiveData?.observe(this, Observer {
+            if (it != null) {
+                if (it.isSuccess) {
+                    Log.d("homeFragment", it.respond.toString())
+                } else {
+                    context?.toast(it.errorReason ?: "")
+                }
+            } else {
+                context?.toast(getString(R.string.network_error))
+            }
+        })
+
+        viewModel.schoolInfo(id = 1)
     }
 
     private fun showDialog() {
