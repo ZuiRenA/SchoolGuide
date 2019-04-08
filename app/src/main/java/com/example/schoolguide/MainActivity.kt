@@ -3,11 +3,14 @@ package com.example.schoolguide
 import android.os.Bundle
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
-import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.main.GuideFragment
 import com.example.schoolguide.main.HomeFragment
 import com.example.schoolguide.main.MineFragment
+import com.example.schoolguide.model.LogoutEvent
 import com.example.schoolguide.view.BaseActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
 
@@ -27,6 +30,7 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        EventBus.getDefault().register(this)
 
         fragmentHome = HomeFragment.newInstance()
         fragmentGuide = GuideFragment.newInstance()
@@ -67,5 +71,15 @@ class MainActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
         }
 
         fragmentManager.commit()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun  logOutEvent(event: LogoutEvent) {
+        finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

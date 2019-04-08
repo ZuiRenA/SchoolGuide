@@ -9,4 +9,9 @@
     <color name="black">#000000</color>
     <color name="loginMain">#fd6702</color>
     <color name="loginDark">#CC4B00</color>
+    <color name="light_gray">#FF9B9B9B</color>
+    <color name="home_bg">#fbb040</color>
+    <color name="light_white">#e6e6e6</color>
+    <color name="more_light_white">#eeeeee</color>
+    <color name="default_text_view_color">#80323232</color>
 </resources>

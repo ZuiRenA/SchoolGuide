@@ -17,9 +17,10 @@
     <TextView
             android:id="@+id/splashSkip"
             android:text="@string/skip"
-            android:textColor="@color/white"
+            android:textColor="@drawable/home_map"
             android:textSize="14sp"
             android:gravity="center"
+            android:clickable="true"
             android:layout_width="50dp"
             android:layout_height="30dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,10 +1,13 @@
 package com.example.schoolguide.mine
 
 import android.app.Activity
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -23,18 +26,25 @@ import java.io.FileNotFoundException
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.main.base_toolbar.*
 
 class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
     private lateinit var popupWindow: PopupWindow
     private lateinit var imagePickUtil: ImagePickUtil
     private lateinit var storageRef: StorageReference
+    private lateinit var viewModel: PersonDataViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_person_data)
         imagePickUtil = ImagePickUtil(this)
         storageRef = FirebaseStorage.getInstance().reference
+        baseToolbarTV.visibility = View.VISIBLE
+        baseToolbarTitle.text = getString(R.string.person_data)
+        baseToolbar.setNavigationOnClickListener { finish() }
+
+        viewModel = ViewModelProviders.of(this).get(PersonDataViewModel::class.java)
 
         initView()
         initClick()

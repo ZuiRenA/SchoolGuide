@@ -16,5 +16,99 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+        <yyydjk.com.library.CouponView
+                android:background="@color/home_bg"
+                android:alpha="0.8"
+                app:cv_dash_line_color="@color/white"
+                app:cv_semicircle_color="@color/light_white"
+                app:cv_is_dash_line_top="true"
+                app:cv_is_dash_line_left="false"
+                app:cv_is_dash_line_right="false"
+                app:cv_is_dash_line_bottom="false"
+                app:cv_is_semicircle_top="true"
+                app:cv_is_semicircle_bottom="true"
+                app:cv_is_semicircle_left="false"
+                app:cv_is_semicircle_right="false"
+                app:cv_semicircle_gap="5dp"
+                app:cv_semicircle_radius="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:cv_dash_line_margin_top="30dp"
+                tools:layout_editor_absoluteX="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/homeBanner" android:id="@+id/couponView"/>
+
+
+        <TextView
+                android:id="@+id/homeSchoolName"
+                android:textSize="12sp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/couponView"
+                app:layout_constraintStart_toStartOf="@+id/couponView" android:layout_marginStart="15dp"/>
+
+        <TextView
+                android:id="@+id/homeSchoolAddress"
+                android:textSize="12sp"
+                android:layout_height="30dp"
+                android:layout_width="0dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/couponView"
+                app:layout_constraintTop_toTopOf="@+id/couponView" android:layout_marginEnd="15dp"/>
+
+        <TextView
+                android:id="@+id/homeSchoolIntro"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="15dp" app:layout_constraintEnd_toEndOf="@+id/couponView"
+                android:layout_marginEnd="15dp" android:layout_marginTop="4dp"
+                app:layout_constraintTop_toBottomOf="@+id/homeSchoolName" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/couponView"/>
+
+        <TextView
+                android:id="@+id/showHomeMap"
+                android:text="@string/home_map"
+                android:textColor="@drawable/home_map"
+                android:background="@drawable/home_map_bg"
+                android:gravity="center"
+                android:clickable="true"
+                android:textSize="12sp"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="@+id/couponView"/>
+
+        <ImageView
+                android:id="@+id/homeLine1"
+                android:background="@color/light_white"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/couponView"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:id="@+id/yourGuideTime"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:textColor="@drawable/default_text_select"
+                app:layout_constraintStart_toStartOf="@+id/homeLine1" android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/homeLine1"
+                app:layout_constraintTop_toTopOf="@+id/homeLine1"
+                app:layout_constraintBottom_toBottomOf="@+id/homeLine1"/>
+
+        <ImageView
+                android:background="@color/more_light_white"
+                android:layout_width="0dp"
+                android:layout_height="0dp" android:id="@+id/guideTimeBG"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/yourGuideTime"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

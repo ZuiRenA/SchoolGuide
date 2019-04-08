@@ -38,7 +38,7 @@ import java.util.*
  * create an instance of this fragment.
  *
  */
-class GuideFragment : BaseFragment(), View.OnClickListener, OnDateSetListener {
+class GuideFragment : BaseFragment(), View.OnClickListener {
 
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var viewModel: GuideViewModel
@@ -55,70 +55,18 @@ class GuideFragment : BaseFragment(), View.OnClickListener, OnDateSetListener {
         // Inflate the layout for this fragment
         viewModel = ViewModelProviders.of(this).get(GuideViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_guide, container, false)
-        init(view)
         return view
     }
 
 
-    @SuppressLint("SetTextI18n", "SimpleDateFormat")
-    private fun init(view: View) {
-        //TODO 初始化 各种东西
-        sf = SimpleDateFormat("yyyy.MM.dd")
 
-        //TODO 后面网络请求加上服务器的报到，没有就用本地当前时间
-        val mCalendar = Calendar.getInstance()
-        val year = mCalendar.get(Calendar.YEAR)
-        val month = mCalendar.get(Calendar.MONTH) + 1
-        val day = mCalendar.get(Calendar.DAY_OF_MONTH)
-        val mFormat = DecimalFormat("00")
-        val monthStr = mFormat.format(month)
-        val dayStr = mFormat.format(day)
-        view.tvGuideTime.text = "$year.$monthStr.$dayStr"
-
-        view.refreshGuide.setRefreshHeader(ClassicsHeader(context))
-        setClick(view)
-    }
-
-    private fun setClick(view: View) {
-        view.tvGuideTime.setOnClickListener(this)
-    }
 
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.tvGuideTime -> {
-                showTimeDialog()
-            }
-        }
-    }
 
-    private fun showTimeDialog() {
-        if (timeDialog == null) {
-            val fourYears = 3L * 365 * 1000 * 60 * 60 * 24L
-            timeDialog = TimePickerDialog.Builder()
-                .setCallBack(this)
-                .setCancelStringId(getString(R.string.cancel))
-                .setSureStringId(getString(R.string.assign))
-                .setTitleStringId(getString(R.string.select_time))
-                .setType(Type.YEAR_MONTH_DAY)
-                .setMinMillseconds(System.currentTimeMillis())
-                .setMaxMillseconds(System.currentTimeMillis() + fourYears)
-                .setWheelItemTextSize(12)
-                .setThemeColor(resources.getColor(R.color.loginMain))
-                .build()
-        }
-
-        timeDialog?.show(fragmentManager, "year_month_day")
-    }
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-        val time = sf.format(Date(millseconds))
-        view?.tvGuideTime?.text = time
-        //TODO 去获取rvCanGuide 的数据把他刷新出来
     }
 
     override fun onStart() {
         super.onStart()
-
 
         refreshGuide.setOnRefreshListener {
             it.finishRefresh(2000, false)

@@ -1,6 +1,5 @@
 package com.example.schoolguide.network
 
-import com.example.schoolguide.model.Id
 import com.example.schoolguide.model.SchoolInfo
 import com.example.schoolguide.model.isSuccess
 import retrofit2.Call
@@ -13,4 +12,5 @@ interface Server {
 
     @GET("schoolInfo/{id}")
     fun schoolInfo(@Path("id") id: Int) : Call<isSuccess<SchoolInfo>>
+
 }

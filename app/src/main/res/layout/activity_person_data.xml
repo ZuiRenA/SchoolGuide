@@ -8,32 +8,7 @@
         tools:context=".mine.PersonDataActivity">
 
 
-    <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/baseToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
-                android:id="@+id/baseToolbarTV"
-                android:text="@string/submit"
-                android:textSize="14dp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="15dp"/>
-
-    </android.support.constraint.ConstraintLayout>
+    <include layout="@layout/base_toolbar"/>
 
 
     <ImageView
@@ -43,5 +18,115 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="100dp"
             app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:id="@+id/personDataSchool"
+            android:text="@string/school"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/personDataAvatar" android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"/>
+
+    <ImageView android:background="@color/colorPrimaryDark"
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp"
+               tools:layout_editor_absoluteX="0dp"
+               app:layout_constraintTop_toBottomOf="@+id/personDataSchool" android:id="@+id/imageViewSchool"/>
+
+    <TextView
+            android:id="@+id/personDataCollege"
+            android:text="@string/college"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp" android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewSchool"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView android:background="@color/colorPrimaryDark"
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp" tools:layout_editor_absoluteX="0dp"
+               app:layout_constraintTop_toBottomOf="@+id/personDataCollege" android:id="@+id/imageViewCollege"/>
+
+    <TextView
+            android:id="@+id/personDataName"
+            android:text="@string/name"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp" android:layout_height="40dp" tools:layout_editor_absoluteY="318dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCollege" android:layout_marginTop="0dp"/>
+
+    <ImageView android:background="@color/colorPrimaryDark"
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp" tools:layout_editor_absoluteX="0dp"
+               app:layout_constraintTop_toBottomOf="@+id/personDataName" android:id="@+id/imageViewName"/>
+
+    <TextView
+            android:id="@+id/personDataIdCard"
+            android:text="@string/id_card"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp" android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/personDataName"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView android:background="@color/colorPrimaryDark"
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp" tools:layout_editor_absoluteX="0dp"
+               app:layout_constraintTop_toBottomOf="@+id/personDataIdCard" android:id="@+id/imageViewIdCard"/>
+
+    <TextView
+            android:id="@+id/personDataDor"
+            android:text="@string/dormitory"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp" android:layout_height="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewIdCard"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView android:background="@color/colorPrimaryDark"
+               android:layout_width="match_parent"
+               android:layout_height="0.5dp" tools:layout_editor_absoluteX="0dp"
+               app:layout_constraintTop_toBottomOf="@+id/personDataDor" android:id="@+id/imageViewDor"/>
+
+    <ImageView
+            android:src="@drawable/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/personDataSchool" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/personDataSchool"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/personDataCollege"/>
+
+    <ImageView
+            android:src="@drawable/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:layout_constraintEnd_toEndOf="@+id/personDataCollege"
+            android:layout_marginEnd="8dp" app:layout_constraintTop_toTopOf="@+id/personDataCollege"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/personDataName"
+            android:layout_marginTop="8dp"/>
+
+    <ImageView
+            android:src="@drawable/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/personDataName" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/personDataName"
+            app:layout_constraintBottom_toTopOf="@+id/imageViewName" android:layout_marginBottom="8dp"/>
+
+
+    <ImageView
+            android:src="@drawable/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/personDataIdCard" android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/personDataIdCard"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/personDataDor"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -77,8 +77,5 @@ object RetrofitHelper {
             .build()
     }
 
-    private fun REQUEST_TIMESTAMP_VALUE(): String =
-            "" + Timestamp(System.currentTimeMillis()).time / 1000
-
     fun <T> create(clazz: Class<T>) = getRetrofit().create(clazz)
 }
