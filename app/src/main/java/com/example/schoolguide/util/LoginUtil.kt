@@ -1,17 +1,20 @@
 package com.example.schoolguide.util
 
+import com.example.schoolguide.model.User
 import com.tencent.mmkv.MMKV
 
 object LoginUtil {
 
-    const val User_Info = "user_info"
-    const val User_Account = "user_account"
-    const val User_Password = "user_password"
+    private const val User_Info = "user_info"
+    private const val User_Account = "user_account"
+    private const val User_Password = "user_password"
     const val Null_String = ""
 
+    var user: User ?= null
+
     data class UserInfo(
-        var account: String?,
-        var password: String?
+        var account: String,
+        var password: String
     )
 
     private val kv = MMKV.defaultMMKV(MMKV.SINGLE_PROCESS_MODE, User_Info)

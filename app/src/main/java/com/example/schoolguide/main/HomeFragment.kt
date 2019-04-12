@@ -64,19 +64,20 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
         super.onStart()
 //        homeMap.showImage(Uri.parse("https://i.loli.net/2019/04/07/5ca9e0b8a2187.jpg"))
 
+        //设置Home页面Banner的各项属性
+        //各项属性详见：https://github.com/youth5201314/banner
+        homeBanner.setImageLoader(GlideImageLoader())
+        homeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+        homeBanner.setBannerAnimation(Transformer.Default)
+        homeBanner.setDelayTime(3000)
+        homeBanner.setIndicatorGravity(BannerConfig.CENTER)
+
         viewModel.schoolInfoLiveData?.observe(this, Observer {
             if (it != null) {
                 if (it.isSuccess) {
                     showSchoolInfo(it.respond)
                     imageList = it.respond.image_show_list
-                    //设置Home页面Banner的各项属性
-                    //各项属性详见：https://github.com/youth5201314/banner
-                    homeBanner.setImageLoader(GlideImageLoader())
-                    homeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
                     homeBanner.setImages(imageList)
-                    homeBanner.setBannerAnimation(Transformer.Default)
-                    homeBanner.setDelayTime(3000)
-                    homeBanner.setIndicatorGravity(BannerConfig.CENTER)
                     homeBanner.setOnBannerListener { position ->
                         showDialog(imageList[position])
                     }

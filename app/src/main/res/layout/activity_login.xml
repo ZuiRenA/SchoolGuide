@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="@+id/loginPassword"
             app:layout_constraintBottom_toBottomOf="@+id/loginPassword"/>
     <EditText
-            android:hint="@string/login_account_notice"
+            android:hint="@string/login_phone_number"
             android:theme="@style/LoginEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

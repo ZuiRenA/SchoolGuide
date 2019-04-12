@@ -29,6 +29,14 @@
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                 app:layout_constraintTop_toTopOf="@+id/mine_avatar_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/mine_avatar_bg"/>
+        <ImageView
+                android:background="@color/more_light_white"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/mineRecycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mineRecycler"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/mineRecycler"

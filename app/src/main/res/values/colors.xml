@@ -14,4 +14,6 @@
     <color name="light_white">#e6e6e6</color>
     <color name="more_light_white">#eeeeee</color>
     <color name="default_text_view_color">#80323232</color>
+    <color name="blue">#1296db</color>
+    <color name="light_blue">#2bb2f8</color>
 </resources>
