@@ -15,6 +15,7 @@ import retrofit2.Response
 
 class LoginViewModel: ViewModel() {
     var loginLiveData: MutableLiveData<isSuccess<User>> ?= MutableLiveData()
+    var registerLiveData: MutableLiveData<isSuccess<User>> ?= MutableLiveData()
 
     fun login(phoneNumber: Long, password: String) {
         RetrofitHelper.create(Server::class.java).login(PanP(phoneNumber, password)).enqueue(object : Callback<isSuccess<User>> {
@@ -28,6 +29,22 @@ class LoginViewModel: ViewModel() {
                 }
 
                 loginLiveData?.value = response.body()
+            }
+        })
+    }
+
+    fun register(name: String, phoneNumber: Long, password: String) {
+        RetrofitHelper.create(Server::class.java).register(User(name = name, phone_number = phoneNumber, password = password)).enqueue(object : Callback<isSuccess<User>>  {
+            override fun onFailure(call: Call<isSuccess<User>>, t: Throwable) {
+                registerLiveData?.value = null
+            }
+
+            override fun onResponse(call: Call<isSuccess<User>>, response: Response<isSuccess<User>>) {
+                if (response.body()!!.isSuccess) {
+                    LoginUtil.user = response.body()!!.respond
+                }
+
+                registerLiveData?.value = response.body()
             }
         })
     }

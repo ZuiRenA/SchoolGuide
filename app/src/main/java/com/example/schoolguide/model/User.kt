@@ -11,7 +11,7 @@ data class PanP(
 )
 
 data class User(
-    val id: Int?,
+    val id: Int? = null,
     val name: String,
     val phone_number: Long,
     val password: String,

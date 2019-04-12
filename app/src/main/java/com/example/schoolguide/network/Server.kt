@@ -17,4 +17,7 @@ interface Server {
 
     @POST("login")
     fun login(@Body  content: PanP) : Call<isSuccess<User>>
+
+    @POST("register")
+    fun register(@Body user: User): Call<isSuccess<User>>
 }
