@@ -1,27 +1,19 @@
 package com.example.schoolguide
 
 import android.app.Application
+import android.content.ContextWrapper
 import com.google.firebase.storage.FirebaseStorage
 import com.tencent.mmkv.MMKV
 import kotlin.properties.Delegates
 
+private lateinit var appContext: Application
+
 class App : Application() {
-    companion object {
-        var instance: App by Delegates.notNull()
-
-        @JvmStatic
-        private var appContext: Application? = null
-
-        @JvmStatic
-        fun getAppContext(): Application? = appContext
-    }
-
-
     override fun onCreate() {
         super.onCreate()
         MMKV.initialize(this)
         appContext = this
-        instance = this
     }
-
 }
+
+object AppContext: ContextWrapper(appContext)

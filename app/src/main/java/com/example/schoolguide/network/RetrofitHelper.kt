@@ -39,8 +39,6 @@ object RetrofitHelper {
                     .method(original.method(), original.body())
                     .build()
 
-                val pi = App.instance.packageManager.getPackageInfo(App.instance.packageName, 0)
-                Log.v("mac", DeviceInfo.unique_sign(App.instance))
                 Log.e(TAG, "head:" + "\n" + request.headers().toString())
                 Log.e(TAG, "request:$request")
 

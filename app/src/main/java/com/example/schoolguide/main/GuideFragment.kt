@@ -19,8 +19,10 @@ import com.example.schoolguide.view.BaseFragment
 import com.example.schoolguide.R
 import com.example.schoolguide.databinding.FragmentGuideBinding
 import com.example.schoolguide.extUtil.intent
+import com.example.schoolguide.extUtil.yes
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.model.GuideTime
+import com.example.schoolguide.util.LoginUtil
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
@@ -46,7 +48,8 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         viewModel = ViewModelProviders.of(this).get(GuideViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_guide, container, false)
@@ -58,7 +61,7 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
 
 
     override fun onClick(v: View?) {
-        when(v?.id) {
+        when (v?.id) {
             R.id.guidePersonData -> {
                 context?.intent(PersonDataActivity::class.java)
             }
@@ -75,11 +78,22 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
             it.finishRefresh(2000, false)
         }
 
+        init()
+    }
+
+    private fun init() {
         context?.let {
-            Glide.with(it)
-                .load(R.drawable.test_avatar_icon)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(guideAvatar)
+            if (LoginUtil.user?.user_avatar == null || LoginUtil.user?.user_avatar != "") {
+                Glide.with(it)
+                    .load(LoginUtil.user?.user_avatar)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(guideAvatar)
+            } else {
+                Glide.with(it)
+                    .load(R.drawable.test_avatar_icon)
+                    .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                    .into(guideAvatar)
+            }
         }
     }
 

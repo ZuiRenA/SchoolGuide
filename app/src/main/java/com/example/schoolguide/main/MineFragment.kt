@@ -22,25 +22,15 @@ import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.mine.SettingActivity
 import com.example.schoolguide.model.Mine
+import com.example.schoolguide.util.LoginUtil
 import com.scwang.smartrefresh.header.WaveSwipeHeader
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [MineFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [MineFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class MineFragment : BaseFragment() {
-    // TODO: Rename and change types of parameters
 
-    private var listener: OnFragmentInteractionListener? = null
     private lateinit var item: List<Mine>
     private lateinit var mAdapter: MineAdapter
     private lateinit var mineRecycler: RecyclerView
@@ -97,42 +87,31 @@ class MineFragment : BaseFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_mine, container, false)
         mineRecycler = view.mineRecycler
-        Glide.with(this).load(R.drawable.test_avatar_icon)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(view.mine_avatar)
-
-        Glide.with(this).load(R.drawable.test_avatar_icon)
-            .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
-            .into(view.mine_avatar_bg)
-
+        init(view)
         view.refreshMine.setRefreshHeader(ClassicsHeader(context))
         return view
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    private fun init(view: View) {
+        if(LoginUtil.user?.user_avatar == null || LoginUtil.user?.user_avatar != "") {
+            Glide.with(this).load(LoginUtil.user?.user_avatar)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(view.mine_avatar)
+
+            Glide.with(this).load(LoginUtil.user?.user_avatar)
+                .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
+                .into(view.mine_avatar_bg)
+        } else {
+            Glide.with(this).load(R.drawable.test_avatar_icon)
+                .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                .into(view.mine_avatar)
+
+            Glide.with(this).load(R.drawable.test_avatar_icon)
+                .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
+                .into(view.mine_avatar_bg)
+        }
+
     }
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        if (context is OnFragmentInteractionListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException("$context must implement OnFragmentInteractionListener")
-//        }
-//    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
 }
 
 class MineAdapter(resId: Int, data: List<Mine>): BaseQuickAdapter<Mine, BaseViewHolder>(resId, data) {
