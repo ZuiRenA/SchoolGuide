@@ -35,7 +35,7 @@
                 <TextView
                         android:id="@+id/guideName"
                         android:textSize="15sp"
-                        android:text="测试1"
+                        android:text="@string/null_content"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
 
                 <TextView
                         android:id="@+id/guideId"
-                        android:text="12345614651913213"
+                        android:text="@string/null_content"
                         android:textSize="12sp"
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
@@ -54,7 +54,6 @@
 
                 <ImageView
                         android:id="@+id/guideIconYes"
-                        android:src="@drawable/fail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/guideYes"
@@ -64,7 +63,6 @@
                 <TextView
                         android:id="@+id/guideYes"
                         android:textColor="@color/white"
-                        android:text="未完成报到"
                         android:textSize="14sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -74,7 +72,6 @@
 
                 <TextView
                         android:id="@+id/guideStatusText"
-                        android:text="请尽快完成个人信息填写"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         android:layout_width="wrap_content"
@@ -113,7 +110,8 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@+id/guideLine1"
                         app:layout_constraintBottom_toBottomOf="@+id/guidePersonData"
-                        app:layout_constraintEnd_toEndOf="@+id/guidePersonData" android:layout_marginEnd="15dp"/>
+                        app:layout_constraintEnd_toEndOf="@+id/guidePersonData" android:layout_marginEnd="15dp"
+                        android:id="@+id/imageView8"/>
                 <TextView
                         android:text="@string/guide_person"
                         android:textSize="12sp"
@@ -144,7 +142,8 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="@+id/guideUpload" android:layout_marginEnd="15dp"
                         app:layout_constraintBottom_toBottomOf="@+id/guideUpload" android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toTopOf="@+id/guideUpload" android:layout_marginBottom="8dp"/>
+                        app:layout_constraintTop_toTopOf="@+id/guideUpload" android:layout_marginBottom="8dp"
+                        android:id="@+id/imageView7"/>
                 <TextView
                         android:text="@string/upload_info"
                         android:textSize="14sp"
@@ -177,6 +176,24 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/guideLine3"
                         app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="@+id/guidePersonData"
+                        app:layout_constraintBottom_toTopOf="@+id/guideUpload"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView8" android:layout_marginEnd="5dp"
+                        android:id="@+id/guidePersonStatus"/>
+                <TextView
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/guideLine2"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView7"
+                        app:layout_constraintBottom_toTopOf="@+id/guideLine3" android:layout_marginEnd="5dp"
+                        android:id="@+id/guideIdStatus"/>
+
 
             </android.support.constraint.ConstraintLayout>
         </FrameLayout>

@@ -1,40 +1,25 @@
 package com.example.schoolguide.main
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.schoolguide.view.BaseFragment
 
 import com.example.schoolguide.R
-import com.example.schoolguide.databinding.FragmentGuideBinding
-import com.example.schoolguide.extUtil.intent
-import com.example.schoolguide.extUtil.yes
+import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.mine.PersonDataActivity
-import com.example.schoolguide.model.GuideTime
+import com.example.schoolguide.model.User
 import com.example.schoolguide.util.LoginUtil
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import kotlinx.android.synthetic.main.fragment_guide.*
 import kotlinx.android.synthetic.main.fragment_guide.view.*
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.*
 
 class GuideFragment : BaseFragment(), View.OnClickListener {
 
@@ -82,10 +67,11 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun init() {
+        val userInfo = LoginUtil.user
         context?.let {
-            if (LoginUtil.user?.user_avatar == null || LoginUtil.user?.user_avatar != "") {
+            if (userInfo?.user_avatar != null && userInfo.user_avatar != "") {
                 Glide.with(it)
-                    .load(LoginUtil.user?.user_avatar)
+                    .load(userInfo.user_avatar)
                     .apply(RequestOptions.bitmapTransform(CircleCrop()))
                     .into(guideAvatar)
             } else {
@@ -94,6 +80,31 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
                     .apply(RequestOptions.bitmapTransform(CircleCrop()))
                     .into(guideAvatar)
             }
+        }
+
+        (userInfo != null).yes {
+            guideName.text = userInfo?.name
+            guideId.text = (userInfo?.user_id_card !=null && userInfo.user_id_card != "").yes { userInfo?.user_id_card }.otherwise { getString(R.string.id_not_input) }
+            isComplete(userInfo)
+        }.otherwise {
+            context?.toast(getString(R.string.init_error_one))
+        }
+    }
+
+    private fun isComplete(userInfo: User?) {
+        (userInfo?.user_school == null || userInfo.user_college == null || userInfo.user_id_card == null || userInfo.user_name == null
+                || userInfo.user_school == "" || userInfo.user_college == "" || userInfo.user_id_card == "" || userInfo.user_name == "").no {
+            guidePersonStatus.text = getString(R.string.yes_finish_info)
+            guidePersonStatus.setTextColor(resources.getColor(R.color.default_text_view_color))
+            guideStatusText.text = getString(R.string.finish_guide_info)
+            guideYes.text = getString(R.string.guide_yes)
+            guideIconYes.setImageResource(R.drawable.success)
+        }.otherwise {
+            guidePersonStatus.text = getString(R.string.no_finish_info)
+            guidePersonStatus.setTextColor(resources.getColor(R.color.light_blue))
+            guideStatusText.text = getString(R.string.quick_guide_info)
+            guideYes.text = getString(R.string.guide_no)
+            guideIconYes.setImageResource(R.drawable.fail)
         }
     }
 

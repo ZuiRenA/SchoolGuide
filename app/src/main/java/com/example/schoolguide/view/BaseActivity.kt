@@ -1,6 +1,8 @@
 package com.example.schoolguide.view
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +16,6 @@ import com.kaopiz.kprogresshud.KProgressHUD
 
 @SuppressLint("Registered")
 open class BaseActivity: AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)

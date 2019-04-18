@@ -19,6 +19,7 @@ import com.example.schoolguide.App
 import com.example.schoolguide.view.BaseFragment
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.intent
+import com.example.schoolguide.extUtil.startActivity
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.mine.SettingActivity
 import com.example.schoolguide.model.Mine
@@ -74,7 +75,7 @@ class MineFragment : BaseFragment() {
                 }
 
                 Setting -> {
-                    context?.intent(SettingActivity::class.java)
+                    context?.startActivity<SettingActivity> {   }
                 }
             }
         }

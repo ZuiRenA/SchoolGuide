@@ -14,8 +14,10 @@ import java.io.Serializable
  * @cls: 跳转页面
  * @content: 跳转页面时需要传递的值
  */
-fun <T> Activity.intent(cls: Class<T>,
-                        content: Map<String, Any>? = null) {
+fun <T> Activity.intent(
+    cls: Class<T>,
+    content: Map<String, Any>? = null
+) {
     val intent = Intent(this, cls)
     content?.let {
         content.forEach { (key, value) ->
@@ -25,8 +27,10 @@ fun <T> Activity.intent(cls: Class<T>,
     startActivity(intent)
 }
 
-fun <T> Context.intent(cls: Class<T>,
-                       content: Map<String, Any>? = null) {
+fun <T> Context.intent(
+    cls: Class<T>,
+    content: Map<String, Any>? = null
+) {
     val intent = Intent(this, cls)
     content?.let {
         content.forEach { (key, value) ->
@@ -36,8 +40,28 @@ fun <T> Context.intent(cls: Class<T>,
     startActivity(intent)
 }
 
-private fun switchValue(intent: Intent, key: String, value: Any) {
-    when(value) {
+inline fun <reified T : Activity> Activity.startActivity(block: () -> Any) {
+    val intent = Intent(this, T::class.java)
+    (block() !is Unit).yes {
+        (block() as Map<String, Any>).forEach { map ->
+            switchValue(intent, map.key, map.value)
+        }
+    }
+    startActivity(intent)
+}
+
+inline fun <reified T : Activity> Context.startActivity(block: () -> Any) {
+    val intent = Intent(this, T::class.java)
+    (block() !is Unit).yes {
+        (block() as Map<String, Any>).forEach { map ->
+            switchValue(intent, map.key, map.value)
+        }
+    }
+    startActivity(intent)
+}
+
+fun switchValue(intent: Intent, key: String, value: Any) {
+    when (value) {
         is Bundle -> intent.putExtra(key, value)
         is Parcelable -> intent.putExtra(key, value)
         is Serializable -> intent.putExtra(key, value)
@@ -64,3 +88,9 @@ private fun switchValue(intent: Intent, key: String, value: Any) {
         else -> throw RuntimeException("Intent Have Error value type")
     }
 }
+
+
+
+
+
+

@@ -25,3 +25,13 @@ data class GuideChoice(
 data class GuideData(
     var studentId: Long?
 )
+
+data class School(
+    var school_id: Int,
+    var school_name: String
+)
+
+data class College(
+    var school_id: Int,
+    var guide_college: String
+)

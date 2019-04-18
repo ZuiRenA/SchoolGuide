@@ -2,6 +2,7 @@ package com.example.schoolguide.mine
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.schoolguide.view.BaseActivity
 import com.example.schoolguide.R

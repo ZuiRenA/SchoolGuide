@@ -11,7 +11,13 @@
     <string name="submit">提交</string>
 
     <!--error-->
+    <string name="null_content">null</string>
     <string name="image_show_error">加载图片失败</string>
+    <string name="login_btn_error">手机号和密码不能为空</string>
+    <string name="register_btn_error">昵称、手机号和密码不能为空</string>
+    <string name="init_error_one">请登陆或检查您的网络</string>
+    <string name="upload_avatar_error">上传头像失败</string>
+    <string name="input_null_error">输入内容不能为空</string>
 
     <!--login part-->
     <string name="login_account">账号：</string>
@@ -22,8 +28,6 @@
     <string name="login_register">注册账号</string>
     <string name="login_forget_password">忘记密码</string>
     <string name="login">登陆</string>
-    <string name="login_btn_error">手机号和密码不能为空</string>
-    <string name="register_btn_error">昵称、手机号和密码不能为空</string>
 
     <!--main-->
     <string name="home">首页</string>
@@ -35,6 +39,7 @@
     <string name="setting">设置</string>
     <string name="take_photo">拍照</string>
     <string name="choice_photo">从相册中选取</string>
+    <string name="nickname">昵称</string>
     <string name="school">学校</string>
     <string name="college">学院</string>
     <string name="name">姓名</string>
@@ -57,7 +62,25 @@
     <string name="upload_info">材料信息</string>
     <string name="guide_person">完善身份信息</string>
     <string name="guide_upload">上传材料照片</string>
+    <string name="quick_guide_info">请尽快完成个人信息填写</string>
+    <string name="finish_guide_info">已完成个人信息填写</string>
+    <string name="guide_no">未完成报到</string>
+    <string name="guide_yes">已完成报到</string>
+    <string name="id_not_input">暂未填写身份证号</string>
+    <string name="no_finish_info">未完善</string>
+    <string name="yes_finish_info">已完善</string>
 
     <!--home-->
     <string name="home_map">校内地图</string>
+
+    <!--personData-->
+    <string name="not_in_write">未填写</string>
+    <string name="yet_in_write">已填写</string>
+    <string name="nickname_input">请输入昵称</string>
+    <string name="name_input">请输入姓名</string>
+    <string name="id_card_input">请输入身份证号</string>
+    <string name="school_select">请选择学校</string>
+    <string name="college_select">请选择学院</string>
+    <string name="id_not_num">身份证需为纯数字</string>
+    <string name="upload_person_success">修改成功</string>
 </resources>

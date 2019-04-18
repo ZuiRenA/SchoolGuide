@@ -1,9 +1,6 @@
 package com.example.schoolguide.network
 
-import com.example.schoolguide.model.PanP
-import com.example.schoolguide.model.SchoolInfo
-import com.example.schoolguide.model.User
-import com.example.schoolguide.model.isSuccess
+import com.example.schoolguide.model.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -20,4 +17,13 @@ interface Server {
 
     @POST("register")
     fun register(@Body user: User): Call<isSuccess<User>>
+
+    @POST("personData")
+    fun personUpload(@Body user: User): Call<isSuccess<User>>
+
+    @GET("school")
+    fun schoolList(): Call<isSuccess<List<School>>>
+
+    @GET("college/{id}")
+    fun collegeList(@Path("id") id: Int): Call<isSuccess<List<String>>>
 }
