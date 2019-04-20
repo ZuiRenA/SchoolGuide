@@ -53,20 +53,37 @@ class MyEditTextDialog(context: Context, style: Int = R.style.DialogCommon) : Di
         message = str
     }
 
-    internal fun setOptionOneOnclickListener(str: String?, onOptionListener: OnOptionOneClickListener) {
+    fun optionOneCLick(name: String, block:(String?) -> Unit) {
+        setOptionOneOnclickListener(name, object : MyEditTextDialog.OnOptionOneClickListener {
+            override fun onOptionOneClick(content: String?) {
+                block(content)
+            }
+        })
+    }
+
+
+    fun optionTwoCLick(name: String, block:() -> Unit) {
+        setOptionTwoOnclickListener(name, object : MyEditTextDialog.OnOptionTwoClickListener {
+            override fun onOptionTwoClick() {
+                block()
+            }
+        })
+    }
+
+    private fun setOptionOneOnclickListener(str: String?, onOptionListener: OnOptionOneClickListener) {
         str?.let{ optionOneStr = it }
         this.onOptionOneListener = onOptionListener
     }
 
-    internal fun setOptionTwoOnclickListener(str: String?, onOptionListener: OnOptionTwoClickListener) {
+    private fun setOptionTwoOnclickListener(str: String?, onOptionListener: OnOptionTwoClickListener) {
         str?.let { optionTwoStr = it }
         this.onOptionTwoListener = onOptionListener
     }
 
     interface OnOptionOneClickListener {
         fun onOptionOneClick(content: String?)
-
     }
+
     interface OnOptionTwoClickListener {
         fun onOptionTwoClick()
     }

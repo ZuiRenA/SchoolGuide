@@ -21,7 +21,7 @@ class PersonDataViewModel : ViewModel() {
                college: String? = null, userName: String? = null, idCard: String? = null) {
         val info = LoginUtil.user!!
         val user = User(id = info.id, name = name ?: info.name, phone_number = info.phone_number, password = info.password, user_avatar = avatar, user_school = school,
-            user_college = college, user_name = userName, user_id_card = idCard, user_dormitory = null)
+            user_college = college, user_name = userName, user_id_card = idCard, user_dormitory = null, user_letter = null)
         RetrofitHelper.create(Server::class.java).personUpload(user).enqueue(object : Callback<isSuccess<User>> {
             override fun onFailure(call: Call<isSuccess<User>>, t: Throwable) {
                 uploadLiveData?.value = null

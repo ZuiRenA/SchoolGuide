@@ -69,6 +69,7 @@
     <string name="id_not_input">暂未填写身份证号</string>
     <string name="no_finish_info">未完善</string>
     <string name="yes_finish_info">已完善</string>
+    <string name="finish_ca_input">您已完成材料上传</string>
 
     <!--home-->
     <string name="home_map">校内地图</string>
@@ -83,4 +84,10 @@
     <string name="college_select">请选择学院</string>
     <string name="id_not_num">身份证需为纯数字</string>
     <string name="upload_person_success">修改成功</string>
+
+    <!--letterUser-->
+    <string name="upload_info_ca">上传材料</string>
+    <string name="ca_Describe">拍摄/上传您的材料证明</string>
+    <string name="ca_action">点击拍摄/上传录取通知书</string>
+    <string name="letter_notice">信息仅用于身份验证</string>
 </resources>

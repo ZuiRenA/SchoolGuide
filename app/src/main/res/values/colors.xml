@@ -17,4 +17,5 @@
     <color name="blue">#1296db</color>
     <color name="light_blue">#2bb2f8</color>
     <color name="dialog_bg_color">#A5000000</color>
+    <color name="more_light_blue">#30b5fc</color>
 </resources>

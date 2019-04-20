@@ -20,5 +20,6 @@ data class User(
     val user_college: String? = null,
     val user_name: String? = null,
     val user_id_card: String? = null,
-    val user_dormitory: String? = null
+    val user_dormitory: String? = null,
+    val user_letter: String? = null
 )

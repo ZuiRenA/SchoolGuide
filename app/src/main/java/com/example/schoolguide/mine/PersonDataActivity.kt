@@ -1,10 +1,13 @@
 package com.example.schoolguide.mine
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
@@ -42,13 +45,14 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
         private const val TYPE_COLLEGE = 10006
     }
 
-    private lateinit var popupWindow: PopupWindow
     private lateinit var imagePickUtil: ImagePickUtil
     private lateinit var storageRef: StorageReference
     private lateinit var viewModel: PersonDataViewModel
     private var schoolName: String? = null
     private var collegeName: String? = null
-
+    private val pickImagePopUtil by lazy {
+        PickImagePopUtil(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +65,14 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
         viewModel = ViewModelProviders.of(this).get(PersonDataViewModel::class.java)
 
+        pickImagePopUtil.takePhotoAction {
+            imagePickUtil.openCamera()
+        }
+
+        pickImagePopUtil.selectPhotoAction {
+            imagePickUtil.openPhotos()
+        }
+
         initView()
         initClick()
         initNetWork()
@@ -69,7 +81,7 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.personDataAvatar -> {
-                openPopUpWindow()
+                pickImagePopUtil.openPopUpWindow()
             }
             R.id.baseToolbarTV -> {
                 showLoading()
@@ -223,14 +235,9 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
     private fun initView() {
         val userInfo = LoginUtil.user
-        (userInfo?.user_avatar != null && userInfo.user_avatar != "").yes {
-            Glide.with(this).load(userInfo?.user_avatar)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(personDataAvatar)
-        }.otherwise {
-            Glide.with(this).load(R.drawable.test_avatar_icon)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(personDataAvatar)
+
+        personDataAvatar.show(uri =  userInfo?.user_avatar, placeholder =  ColorDrawable(Color.YELLOW), error = R.drawable.test_avatar_icon) {
+            RequestOptions().centerCrop().transform(CircleCrop())
         }
 
         isRight(userInfo?.name)
@@ -259,42 +266,6 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
     private fun isRight(content: String?): Boolean =
         (content != null && content != "").yes { true }.otherwise { false }
-
-    private fun openPopUpWindow() {
-        val view = LayoutInflater.from(this).inflate(R.layout.pop_person_data, null)
-        popupWindow =
-            PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        popupWindow.isFocusable = true
-        popupWindow.isOutsideTouchable = true
-
-        popupWindow.animationStyle = R.style.popWindow
-        popupWindow.showAtLocation(view, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 0)
-        popupWindow.setOnDismissListener {
-            setBackground(1f)
-        }
-        setOnPopupViewClick(view)
-        setBackground(0.5f)
-    }
-
-    private fun setOnPopupViewClick(view: View) {
-        val mTakePhoto: TextView = view.findViewById(R.id.takePhoto)
-        val mSelectPhoto: TextView = view.findViewById(R.id.selectPhoto)
-        val mCancel: TextView = view.findViewById(R.id.personCancel)
-
-        mTakePhoto.setOnClickListener {
-            imagePickUtil.openCamera()
-        }
-        mSelectPhoto.setOnClickListener {
-            imagePickUtil.openPhotos()
-        }
-        mCancel.setOnClickListener { popupWindow.dismiss() }
-    }
-
-    private fun setBackground(alpha: Float) {
-        val lp: WindowManager.LayoutParams = window.attributes
-        lp.alpha = alpha
-        window.attributes = lp
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -328,8 +299,10 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-        if (popupWindow.isShowing) {
-            popupWindow.dismiss()
+        pickImagePopUtil.popWindowAction {
+            if (it.isShowing) {
+                it.dismiss()
+            }
         }
     }
 
@@ -344,21 +317,11 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
     }
 }
 
-fun MyEditTextDialog.optionOneCLick(name: String, block:(String?) -> Unit) {
-    setOptionOneOnclickListener(name, object : MyEditTextDialog.OnOptionOneClickListener {
-        override fun onOptionOneClick(content: String?) {
-            block(content)
-        }
-    })
-}
 
-fun MyEditTextDialog.optionTwoCLick(name: String, block:() -> Unit) {
-    setOptionTwoOnclickListener(name, object : MyEditTextDialog.OnOptionTwoClickListener {
-        override fun onOptionTwoClick() {
-            block()
-        }
-    })
-}
+
+
+
+
 
 
 

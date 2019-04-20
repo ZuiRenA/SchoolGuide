@@ -1,6 +1,8 @@
 package com.example.schoolguide.main
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -19,14 +23,17 @@ import com.example.schoolguide.App
 import com.example.schoolguide.view.BaseFragment
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.intent
+import com.example.schoolguide.extUtil.show
 import com.example.schoolguide.extUtil.startActivity
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.mine.SettingActivity
 import com.example.schoolguide.model.Mine
 import com.example.schoolguide.util.LoginUtil
+import com.example.schoolguide.util.loadTransform
 import com.scwang.smartrefresh.header.WaveSwipeHeader
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import jp.wasabeef.glide.transformations.BlurTransformation
+import jp.wasabeef.glide.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine.view.*
 
@@ -53,8 +60,9 @@ class MineFragment : BaseFragment() {
         item = listOf(Mine(R.drawable.mine_person_data, resources.getString(R.string.person_data)),
             Mine(R.drawable.mine_setting, resources.getString(R.string.setting)))
 
-        refreshMine.setOnRefreshListener {
-            it.finishRefresh(2000, false)
+        refreshMine.setOnRefreshListener { refresh ->
+            view?.let { init(it) }
+            refresh.finishRefresh()
         }
 
         initAdapter()
@@ -94,24 +102,13 @@ class MineFragment : BaseFragment() {
     }
 
     private fun init(view: View) {
-        if(LoginUtil.user?.user_avatar == null || LoginUtil.user?.user_avatar != "") {
-            Glide.with(this).load(LoginUtil.user?.user_avatar)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(view.mine_avatar)
-
-            Glide.with(this).load(LoginUtil.user?.user_avatar)
-                .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
-                .into(view.mine_avatar_bg)
-        } else {
-            Glide.with(this).load(R.drawable.test_avatar_icon)
-                .apply(RequestOptions.bitmapTransform(CircleCrop()))
-                .into(view.mine_avatar)
-
-            Glide.with(this).load(R.drawable.test_avatar_icon)
-                .apply(RequestOptions.bitmapTransform(BlurTransformation(20, 3)))
-                .into(view.mine_avatar_bg)
+        view.mine_avatar.show(uri =  LoginUtil.user?.user_avatar, placeholder = ColorDrawable(Color.YELLOW), error = R.drawable.test_avatar_icon) {
+            RequestOptions().centerCrop().transform(CircleCrop())
         }
 
+        view.mine_avatar_bg.show(uri =  LoginUtil.user?.user_avatar, placeholder = ColorDrawable(Color.YELLOW), error = R.drawable.test_avatar_icon) {
+            RequestOptions.bitmapTransform(BlurTransformation(20, 3))
+        }
     }
 }
 

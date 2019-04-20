@@ -10,10 +10,10 @@ import android.provider.MediaStore
 import java.io.File
 
 
-val REQUESTCODE_TAKE = 1001
-val REQUESTCODE_PICK = 1002
-val REQUESTCODE_CUTTING = 1003
-val HEAD_ICON_NAME = "user_icon.png"
+const val REQUESTCODE_TAKE = 1001
+const val REQUESTCODE_PICK = 1002
+const val REQUESTCODE_CUTTING = 1003
+const val HEAD_ICON_NAME = "user_icon.png"
 
 class ImagePickUtil(var context: Activity) {
 
