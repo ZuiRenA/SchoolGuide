@@ -2,11 +2,11 @@ package com.example.schoolguide.main
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -16,13 +16,16 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.example.schoolguide.R
-import com.example.schoolguide.extUtil.toast
+import com.example.schoolguide.extUtil.*
+import com.example.schoolguide.model.GuideTime
+import com.example.schoolguide.model.SchoolGuideTime
 import com.example.schoolguide.model.SchoolInfo
+import com.example.schoolguide.util.SearchTimeUtil
 import com.example.schoolguide.view.BaseFragment
-import com.filippudak.ProgressPieView.ProgressPieView
 import com.github.piasy.biv.BigImageViewer
-import com.github.piasy.biv.indicator.ProgressIndicator
 import com.github.piasy.biv.indicator.progresspie.ProgressPieIndicator
 import com.github.piasy.biv.view.BigImageView
 import com.github.piasy.biv.view.GlideImageViewFactory
@@ -45,16 +48,15 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
     private lateinit var sf: SimpleDateFormat
     private var timeDialog: TimePickerDialog? = null
     private var pop: PopupWindow? = null
+    private lateinit var guideTimeList: MutableList<SchoolGuideTime>
+    private lateinit var mAdapter: HomeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         BigImageViewer.initialize(com.github.piasy.biv.loader.glide.GlideImageLoader.with(context))
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -62,8 +64,6 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
 
     override fun onStart() {
         super.onStart()
-//        homeMap.showImage(Uri.parse("https://i.loli.net/2019/04/07/5ca9e0b8a2187.jpg"))
-
         //设置Home页面Banner的各项属性
         //各项属性详见：https://github.com/youth5201314/banner
         homeBanner.setImageLoader(GlideImageLoader())
@@ -72,31 +72,67 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
         homeBanner.setDelayTime(3000)
         homeBanner.setIndicatorGravity(BannerConfig.CENTER)
 
-        viewModel.schoolInfoLiveData?.observe(this, Observer {
-            if (it != null) {
-                if (it.isSuccess) {
-                    showSchoolInfo(it.respond)
-                    imageList = it.respond.image_show_list
-                    homeBanner.setImages(imageList)
-                    homeBanner.setOnBannerListener { position ->
-                        showDialog(imageList[position])
-                    }
-                    homeBanner.start()
-                } else {
-                    context?.toast(it.errorReason ?: "")
-                }
-            } else {
-                context?.toast(getString(R.string.network_error))
-            }
-        })
-
+        initRecycler()
+        initGuideTime()
+        initNetWork()
+        initClick()
         viewModel.schoolInfo(id = 1)
+        viewModel.guideTime(id = 1)
+    }
 
+    private fun initClick() {
         showHomeMap.setOnClickListener {
             showPop()
         }
 
-        initGuideTime()
+        showHomeTime.onClick {
+            mAdapter.removeAllItem()
+            mAdapter.addData(guideTimeList)
+            mAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun initRecycler() {
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerHomeGuideTime.layoutManager = mLayoutManager
+        guideTimeList = mutableListOf()
+        mAdapter = HomeAdapter(R.layout.item_home_guide_time, guideTimeList)
+        recyclerHomeGuideTime.adapter = mAdapter
+    }
+
+    private fun initNetWork() {
+        observerAction(viewModel.schoolInfoLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    showSchoolInfo(it.respond)
+                    imageList = it.respond.image_show_list
+                    showBanner(imageList)
+                }.otherwise {
+                    context?.toast(it.errorReason ?: "")
+                    imageList = listOf("", "", "", "")
+                    showBanner(imageList)
+                }
+            }
+        }
+
+        observerAction(viewModel.guideTimeLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    guideTimeList = it.respond as MutableList<SchoolGuideTime>
+                    mAdapter.addData(guideTimeList)
+                    mAdapter.notifyDataSetChanged()
+                }.otherwise { context?.toast(response.errorReason ?: "") }
+            }
+        }
+    }
+
+    private fun showBanner(imageList: List<String>) {
+        homeBanner.setImages(imageList)
+        homeBanner.setOnBannerListener { position ->
+            showDialog(imageList[position])
+        }
+        homeBanner.start()
     }
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")
@@ -197,14 +233,6 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
         }
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser)
-            homeBanner.startAutoPlay()
-        else
-            homeBanner.stopAutoPlay()
-    }
-
     companion object {
         @JvmStatic
         fun newInstance() = HomeFragment()
@@ -214,6 +242,30 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         val time = sf.format(Date(millseconds))
         yourGuideTime?.text = "查询报到日期：$time"
+
+        val rightIndex = SearchTimeUtil.searchTime(selectTime = time, searchTime = guideTimeList, firstTime = {
+            mutableListOf<GuideTime>().copyAction(it) { result ->
+                GuideTime(
+                    result.guide_time_one.year,
+                    result.guide_time_one.month,
+                    result.guide_time_one.day
+                )
+            }
+        }, secondTime = {
+            mutableListOf<GuideTime>().copyAction(it) { result ->
+                GuideTime(
+                    result.guide_time_two.year,
+                    result.guide_time_two.month,
+                    result.guide_time_two.day
+                )
+            }
+        })
+
+        mAdapter.removeAllItem()
+        SearchTimeUtil.rightIndexAction(rightIndex) {
+            mAdapter.addData(guideTimeList[it])
+        }
+        mAdapter.notifyDataSetChanged()
     }
 }
 
@@ -221,7 +273,8 @@ class GlideImageLoader : ImageLoader() {
     override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
         if (context != null && imageView != null) {
             Glide.with(context).load(path)
-                .placeholder(R.mipmap.timg3)
+                .placeholder(R.mipmap.timg2)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(imageView)
         }
     }
@@ -237,4 +290,19 @@ class MyProgress(private var finishImg: ImageView) : ProgressPieIndicator() {
         super.onStart()
         finishImg.visibility = View.INVISIBLE
     }
+}
+
+class HomeAdapter(resId: Int, data: List<SchoolGuideTime>) :
+    BaseQuickAdapter<SchoolGuideTime, BaseViewHolder>(resId, data) {
+    override fun convert(helper: BaseViewHolder?, item: SchoolGuideTime?) {
+        helper?.setText(R.id.textViewItemCollege, item?.guide_college)
+        helper?.setText(R.id.textViewItemTime, "${item?.guide_time_one} - ${item?.guide_time_two}")
+    }
+}
+
+fun <T, R : BaseViewHolder> BaseQuickAdapter<T, R>.removeAllItem() {
+    Log.d("adapter_before", data.size.toString())
+    this.data.clear()
+    this.notifyDataSetChanged()
+    Log.d("adapter_after", data.size.toString())
 }

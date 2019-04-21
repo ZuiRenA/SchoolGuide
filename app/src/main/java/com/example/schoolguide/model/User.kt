@@ -23,3 +23,8 @@ data class User(
     val user_dormitory: String? = null,
     val user_letter: String? = null
 )
+
+data class Letter(
+    val phone_number: Long,
+    val uri: String
+)

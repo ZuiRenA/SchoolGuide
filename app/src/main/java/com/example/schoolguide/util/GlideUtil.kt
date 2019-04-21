@@ -12,5 +12,5 @@ import com.example.schoolguide.AppContext
 fun loadTransform(@DrawableRes drawable: Int, block: () -> RequestOptions) =
     Glide.with(AppContext).load(drawable).apply(block())
 
-fun loadTransform(@DrawableRes drawable: Drawable, block: () -> RequestOptions) =
+fun loadTransform(drawable: Drawable, block: () -> RequestOptions) =
     Glide.with(AppContext).load(drawable).apply(block())

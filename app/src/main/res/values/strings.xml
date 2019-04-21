@@ -18,6 +18,7 @@
     <string name="init_error_one">请登陆或检查您的网络</string>
     <string name="upload_avatar_error">上传头像失败</string>
     <string name="input_null_error">输入内容不能为空</string>
+    <string name="search_time_error">未查询到选择时间</string>
 
     <!--login part-->
     <string name="login_account">账号：</string>
@@ -73,6 +74,7 @@
 
     <!--home-->
     <string name="home_map">校内地图</string>
+    <string name="show_all_guide_time">显示全部</string>
 
     <!--personData-->
     <string name="not_in_write">未填写</string>
@@ -90,4 +92,5 @@
     <string name="ca_Describe">拍摄/上传您的材料证明</string>
     <string name="ca_action">点击拍摄/上传录取通知书</string>
     <string name="letter_notice">信息仅用于身份验证</string>
+    <string name="upload_ca_success">上传材料成功</string>
 </resources>

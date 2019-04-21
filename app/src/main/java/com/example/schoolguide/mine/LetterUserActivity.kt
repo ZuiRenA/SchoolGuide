@@ -1,6 +1,7 @@
 package com.example.schoolguide.mine
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,9 +14,7 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.schoolguide.R
-import com.example.schoolguide.extUtil.dp
-import com.example.schoolguide.extUtil.onClick
-import com.example.schoolguide.extUtil.toast
+import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.util.LoginUtil
 import com.example.schoolguide.util.PhotoPickUtil
 import com.example.schoolguide.util.PhotoPickUtil.Companion.CUTTING
@@ -41,6 +40,7 @@ class LetterUserActivity : BaseActivity() {
     private val photoPickUtil by lazy {
         PhotoPickUtil(context = this, str = "user_letter_ca.png")
     }
+    private lateinit var viewModel: LetterUserViewModel
 
     private val pickImagePopUtil by lazy {
         PickImagePopUtil(this)
@@ -49,6 +49,7 @@ class LetterUserActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_letter_user)
+        viewModel = ViewModelProviders.of(this).get(LetterUserViewModel::class.java)
 
         baseToolbarTitle.text = getString(R.string.upload_info_ca)
         baseToolbar.setNavigationOnClickListener { finish() }
@@ -56,6 +57,21 @@ class LetterUserActivity : BaseActivity() {
         storageRef = FirebaseStorage.getInstance().reference
 
         initClick()
+        initNetWork()
+    }
+
+    private fun initNetWork() {
+        observerAction(viewModel.uploadLetterLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    toast(getString(R.string.upload_ca_success))
+                }.otherwise {
+                    toast(response.errorReason ?: "")
+                }
+            }.run {
+                toast(getString(R.string.network_error))
+            }
+        }
     }
 
     private fun initClick() {
@@ -78,7 +94,7 @@ class LetterUserActivity : BaseActivity() {
         }
 
         baseToolbarTV.onClick {
-
+            caUri?.let { viewModel.uploadLetter(LoginUtil.user?.phone_number ?: 1, it) }
         }
     }
 

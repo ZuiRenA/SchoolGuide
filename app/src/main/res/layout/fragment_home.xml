@@ -110,5 +110,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/yourGuideTime"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+        <TextView
+                android:id="@+id/showHomeTime"
+                android:text="@string/show_all_guide_time"
+                android:textColor="@drawable/default_text_select"
+                android:background="@drawable/home_time_bg"
+                android:gravity="center"
+                android:clickable="true"
+                android:textSize="12sp"
+                android:layout_width="60dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="@+id/homeLine1"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/homeLine1"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/recyclerHomeGuideTime"/>
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerHomeGuideTime"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/guideTimeBG"
+                app:layout_constraintEnd_toEndOf="@+id/guideTimeBG"
+                app:layout_constraintTop_toBottomOf="@+id/homeLine1"
+                app:layout_constraintBottom_toBottomOf="@+id/guideTimeBG"/>
+
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

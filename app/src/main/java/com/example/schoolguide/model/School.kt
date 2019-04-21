@@ -1,11 +1,9 @@
 package com.example.schoolguide.model
 
 data class GuideTime(
-    var time: String?,
-    var year: Long?,
-    var day: Long?,
-    var hour: Long?,
-    var minute: Long?
+    var year: Int,
+    var month: Int,
+    var day: Int
 )
 
 data class Guide(
@@ -34,4 +32,11 @@ data class School(
 data class College(
     var school_id: Int,
     var guide_college: String
+)
+
+data class SchoolGuideTime(
+    val school_id: Int?,
+    val guide_college: String,
+    val guide_time_one: String,
+    val guide_time_two: String
 )

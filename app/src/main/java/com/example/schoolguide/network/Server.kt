@@ -26,4 +26,10 @@ interface Server {
 
     @GET("college/{id}")
     fun collegeList(@Path("id") id: Int): Call<isSuccess<List<String>>>
+
+    @POST("upload/letter")
+    fun uploadLetterCA(@Body letter: Letter): Call<isSuccess<User>>
+
+    @GET("guideTime/{id}")
+    fun guideTImeList(@Path("id") id: Int): Call<isSuccess<List<SchoolGuideTime>>>
 }
