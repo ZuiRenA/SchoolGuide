@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SchoolGuide</string>
+    <string name="app_name">报到吖</string>
 
     <string name="permission_request">需要获取以下权限：</string>
     <string name="network_error">请求失败，请检查你的网络</string>
