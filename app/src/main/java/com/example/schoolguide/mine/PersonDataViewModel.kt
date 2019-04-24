@@ -2,6 +2,9 @@ package com.example.schoolguide.mine
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.example.schoolguide.AppContext
+import com.example.schoolguide.extUtil.callback
+import com.example.schoolguide.extUtil.toast
 import com.example.schoolguide.model.School
 import com.example.schoolguide.model.User
 import com.example.schoolguide.model.isSuccess
@@ -61,3 +64,4 @@ class PersonDataViewModel : ViewModel() {
         })
     }
 }
+

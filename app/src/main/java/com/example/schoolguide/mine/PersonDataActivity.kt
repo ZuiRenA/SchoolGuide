@@ -125,7 +125,8 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
         observerAction(viewModel.uploadLiveData) {
             dismissLoading()
             it?.let { response ->
-                (response.isSuccess).yes { toast(getString(R.string.upload_person_success)) }.otherwise { toast(response.errorReason!!) }
+                (response.isSuccess).yes { toast(getString(R.string.upload_person_success)) }
+                    .otherwise { toast(response.errorReason!!) }
             }
         }
     }
@@ -192,51 +193,61 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
 
     private fun uploadToServer(avatar: String? = null) {
         val nowAvatar = avatar ?: LoginUtil.user?.user_avatar
-        val name = (personNicknameStatus.text == LoginUtil.user?.name).no { personNicknameStatus.text .toString()}.otherwise { null }
+        val name = (personNicknameStatus.text == LoginUtil.user?.name).no { personNicknameStatus.text.toString() }
+            .otherwise { null }
         val school = isNotNull(personSchoolStatus.text).yes { personSchoolStatus.text.toString() }.otherwise { null }
         val college = isNotNull(personCollegeStatus.text).yes { personCollegeStatus.text.toString() }.otherwise { null }
         val userName = isNotNull(personNameStatus.text).yes { personNameStatus.text.toString() }.otherwise { null }
         val id = isNotNull(personIdStatus.text).yes { personIdStatus.text.toString() }.otherwise { null }
-        viewModel.upload(name = name, avatar = nowAvatar, school = school, college = college, userName = userName, idCard = id)
+        viewModel.upload(
+            name = name,
+            avatar = nowAvatar,
+            school = school,
+            college = college,
+            userName = userName,
+            idCard = id
+        )
     }
 
-    private fun isNotNull(content: CharSequence): Boolean = (content != getString(R.string.not_in_write)) .yes { true }.otherwise { false }
+    private fun isNotNull(content: CharSequence): Boolean =
+        (content != getString(R.string.not_in_write)).yes { true }.otherwise { false }
 
     private fun inputName(title: String, message: String? = null, type: Int) {
-        val editDialog = MyEditTextDialog(this)
-        editDialog.setTitle(title)
-        message?.let { editDialog.setMessage(title) }
-        editDialog.optionOneCLick(getString(R.string.assign)) { content ->
-            TextUtils.isEmpty(content)
-                .yes { toast(getString(R.string.input_null_error)) }
-                .otherwise {
-                    when (type) {
-                        NICKNAME -> {
-                            personNicknameStatus.text = content
-                            editDialog.dismiss()
-                        }
-                        NAME -> {
-                            personNameStatus.text = content
-                            editDialog.dismiss()
-                        }
-                        ID_CARD -> {
-                            personIdStatus.text = content
-                            editDialog.dismiss()
+        MyEditTextDialog(this)
+            .setTitle(title)
+            .setMessage(message)
+            .optionOneCLick(getString(R.string.assign)) { content, dialog ->
+                TextUtils.isEmpty(content)
+                    .yes { toast(getString(R.string.input_null_error)) }
+                     .otherwise {
+                        when (type) {
+                            NICKNAME -> {
+                                personNicknameStatus.text = content
+                                dialog.dismiss()
+                            }
+                            NAME -> {
+                                personNameStatus.text = content
+                                dialog.dismiss()
+                            }
+                            ID_CARD -> {
+                                personIdStatus.text = content
+                                dialog.dismiss()
+                            }
                         }
                     }
-                }
-        }
-
-        editDialog.optionTwoCLick(getString(R.string.cancel)) {
-            editDialog.dismiss()
-        }
-        editDialog.show()
+            }.optionTwoCLick(getString(R.string.cancel)) {
+                it.dismiss()
+            }.show()
     }
 
     private fun initView() {
         val userInfo = LoginUtil.user
 
-        personDataAvatar.show(uri =  userInfo?.user_avatar, placeholder =  ColorDrawable(Color.YELLOW), error = R.drawable.test_avatar_icon) {
+        personDataAvatar.show(
+            uri = userInfo?.user_avatar,
+            placeholder = ColorDrawable(Color.YELLOW),
+            error = R.drawable.test_avatar_icon
+        ) {
             RequestOptions().centerCrop().transform(CircleCrop())
         }
 

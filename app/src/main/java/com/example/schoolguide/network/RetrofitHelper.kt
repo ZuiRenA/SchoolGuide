@@ -75,5 +75,5 @@ object RetrofitHelper {
             .build()
     }
 
-    fun <T> create(clazz: Class<T>) = getRetrofit().create(clazz)
+    fun <T> create(clazz: Class<T>): T = getRetrofit().create(clazz)
 }

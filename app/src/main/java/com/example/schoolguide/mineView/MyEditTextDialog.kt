@@ -38,40 +38,45 @@ class MyEditTextDialog(context: Context, style: Int = R.style.DialogCommon) : Di
         }
     }
 
-        private fun initData() {
+    private fun initData() {
         title?.let { dialogTitle.text = it }
         message?.let { dialogMessage.text = it }
         optionOneStr?.let { dialogOptionOne.text = it }
         optionTwoStr?.let { dialogOptionTwo.text = it }
     }
 
-    fun setTitle(str: String) {
+    fun setTitle(str: String): MyEditTextDialog {
         title = str
+        return this
     }
 
-    fun setMessage(str: String) {
-        message = str
+    fun setMessage(str: String?): MyEditTextDialog {
+        str?.let { message = str }
+        return this
     }
 
-    fun optionOneCLick(name: String, block:(String?) -> Unit) {
+    fun optionOneCLick(name: String, block: (String?, MyEditTextDialog) -> Unit): MyEditTextDialog {
         setOptionOneOnclickListener(name, object : MyEditTextDialog.OnOptionOneClickListener {
             override fun onOptionOneClick(content: String?) {
-                block(content)
+                block(content, this@MyEditTextDialog)
             }
         })
+
+        return this
     }
 
 
-    fun optionTwoCLick(name: String, block:() -> Unit) {
+    fun optionTwoCLick(name: String, block: (MyEditTextDialog) -> Unit): MyEditTextDialog {
         setOptionTwoOnclickListener(name, object : MyEditTextDialog.OnOptionTwoClickListener {
             override fun onOptionTwoClick() {
-                block()
+                block(this@MyEditTextDialog)
             }
         })
+        return this
     }
 
     private fun setOptionOneOnclickListener(str: String?, onOptionListener: OnOptionOneClickListener) {
-        str?.let{ optionOneStr = it }
+        str?.let { optionOneStr = it }
         this.onOptionOneListener = onOptionListener
     }
 

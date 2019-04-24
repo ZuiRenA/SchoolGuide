@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_easter_egg.*
 class EasterEggActivity : BaseActivity() {
 
     private var countRecord = 1
-    private var popup: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
