@@ -32,4 +32,7 @@ interface Server {
 
     @GET("guideTime/{id}")
     fun guideTImeList(@Path("id") id: Int): Call<isSuccess<List<SchoolGuideTime>>>
+
+    @GET("message/{phone}")
+    fun sendMessage(@Path("phone") phone: String): Call<isSuccess<Int>>
 }

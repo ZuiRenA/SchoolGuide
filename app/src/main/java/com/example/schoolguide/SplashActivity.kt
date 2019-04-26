@@ -62,8 +62,8 @@ class SplashActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
     }
 
     companion object {
-        private const val PERMISSION = -10001
-        private const val PERMISSION_FAIL = "permission_fail"
+        private const val PERMISSION = 11
+        private const val PERMISSION_FAIL = "fail"
     }
 
     @AfterPermissionGranted(PERMISSION)

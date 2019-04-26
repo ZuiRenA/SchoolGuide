@@ -1,4 +1,4 @@
-package com.example.schoolguide.mine
+package com.example.schoolguide.guide
 
 import android.app.Activity
 import android.arch.lifecycle.ViewModelProviders
@@ -77,10 +77,10 @@ class LetterUserActivity : BaseActivity() {
     private fun initClick() {
         pickImagePopUtil.takePhotoAction {
             photoPickUtil.openCamera()
-        }
-        pickImagePopUtil.selectPhotoAction {
+        }.selectPhotoAction {
             photoPickUtil.openPhotos()
         }
+
         imageViewAddPhoto.onClick {
             pickImagePopUtil.openPopUpWindow()
         }

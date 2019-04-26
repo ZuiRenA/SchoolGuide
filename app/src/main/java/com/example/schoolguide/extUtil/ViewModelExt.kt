@@ -1,8 +1,9 @@
 package com.example.schoolguide.extUtil
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
+import android.arch.lifecycle.*
+import android.content.Context
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 
 /**
  * viewModel.MutableLiveData网络请求写法的简易封装
@@ -14,3 +15,6 @@ fun <T> LifecycleOwner.observerAction(liveData: MutableLiveData<T>?, block: (T?)
         block(it)
     })
 }
+
+inline fun <reified T : ViewModel?> Fragment.viewModelProvider(): T = ViewModelProviders.of(this).get(T::class.java)
+inline fun <reified T : ViewModel?> FragmentActivity.viewModelProvider(): T = ViewModelProviders.of(this).get(T::class.java)

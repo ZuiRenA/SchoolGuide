@@ -83,8 +83,8 @@
             android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_bias="1.0" android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumber"/>
+            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginTop="15dp" app:layout_constraintTop_toBottomOf="@+id/registerMessage"/>
 
     <ImageView
             android:id="@+id/registerPswShow"
@@ -110,4 +110,38 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.example.schoolguide.mineView.CountdownButton
+            android:id="@+id/btnCDRegister"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:background="@drawable/btn_count_down_bg"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@+id/registerMessage"
+            app:layout_constraintBottom_toBottomOf="@+id/registerMessage"
+            app:layout_constraintEnd_toEndOf="@+id/registerMessage"
+            android:layout_marginBottom="8dp"/>
+
+    <EditText
+            android:hint="@string/login_message"
+            android:theme="@style/LoginEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerMessage"
+            android:inputType="number"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/registerPhoneNumber"/>
+
+    <ImageView
+            android:src="@drawable/passoword"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/imageViewMessageRe"
+            app:layout_constraintTop_toTopOf="@+id/registerMessage"
+            app:layout_constraintBottom_toBottomOf="@+id/registerMessage"
+            app:layout_constraintStart_toStartOf="@+id/imageViewRegister2"/>
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.schoolguide.main
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,16 +8,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.*
-import com.example.schoolguide.mine.LetterUserActivity
+import com.example.schoolguide.guide.LetterUserActivity
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.model.User
 import com.example.schoolguide.util.LoginUtil
-import com.example.schoolguide.util.loadTransform
 import com.example.schoolguide.view.BaseFragment
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import kotlinx.android.synthetic.main.fragment_guide.*
@@ -25,10 +24,6 @@ import kotlinx.android.synthetic.main.fragment_guide.view.*
 class GuideFragment : BaseFragment(), View.OnClickListener {
 
     private lateinit var viewModel: GuideViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +35,7 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
         view.refreshGuide.setRefreshHeader(ClassicsHeader(context))
         view.guidePersonData.setOnClickListener(this)
         view.guideUpload.setOnClickListener(this)
+        view.fabGuide.setOnClickListener(this)
         return view
     }
 
@@ -54,6 +50,10 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
                 (guideIdStatus.text == getString(R.string.yes_finish_info)).yes {
                     context?.startActivity<LetterUserActivity> {  }
                 }.otherwise { context?.toast(getString(R.string.finish_guide_info)) }
+            }
+
+            R.id.fabGuide -> {
+                context?.toast("")
             }
         }
     }
@@ -85,10 +85,13 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
 
     }
 
+    @SuppressLint("RestrictedApi")
     private fun isComplete(userInfo: User?) {
-        val requirementOne = userInfo?.user_letter != null || userInfo?.user_letter != ""
-        val requirementTwo = userInfo?.user_school != null || userInfo?.user_college != null || userInfo?.user_id_card != null || userInfo?.user_name != null
-                || userInfo?.user_school != "" || userInfo.user_college != "" || userInfo.user_id_card != "" || userInfo.user_name != ""
+        val requirementOne = userInfo?.user_letter.isNotNullAndEmpty()
+        val requirementTwo = userInfo?.user_school.isNotNullAndEmpty()
+                && userInfo?.user_college.isNotNullAndEmpty()
+                && userInfo?.user_id_card.isNotNullAndEmpty()
+                && userInfo?.user_name.isNotNullAndEmpty()
 
         (requirementOne).yes {
             guideIdStatus.text = getString(R.string.yes_finish_info)
@@ -110,10 +113,12 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
             guideStatusText.text = getString(R.string.finish_guide_info)
             guideYes.text = getString(R.string.guide_yes)
             guideIconYes.setImageResource(R.drawable.success)
+            fabGuide.show()
         }.otherwise {
             guideStatusText.text = getString(R.string.quick_guide_info)
             guideYes.text = getString(R.string.guide_no)
             guideIconYes.setImageResource(R.drawable.fail)
+            fabGuide.hide()
         }
     }
 

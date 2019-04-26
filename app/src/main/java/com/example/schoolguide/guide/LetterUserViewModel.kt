@@ -1,4 +1,4 @@
-package com.example.schoolguide.mine
+package com.example.schoolguide.guide
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -7,7 +7,6 @@ import com.example.schoolguide.model.User
 import com.example.schoolguide.model.isSuccess
 import com.example.schoolguide.network.RetrofitHelper
 import com.example.schoolguide.network.Server
-import com.example.schoolguide.util.LoginUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

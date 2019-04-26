@@ -8,3 +8,4 @@ val String.month: Int
 
 val String.day: Int
     get() = substring(8, 10).toInt()
+

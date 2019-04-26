@@ -1,19 +1,14 @@
 package com.example.schoolguide.login
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
-import com.example.schoolguide.view.BaseActivity
 import com.example.schoolguide.MainActivity
 import com.example.schoolguide.R
-import com.example.schoolguide.extUtil.intent
-import com.example.schoolguide.extUtil.toast
+import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.util.LoginUtil.saveLoginInfo
+import com.example.schoolguide.view.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlin.math.log
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     private lateinit var viewModel: LoginViewModel
@@ -35,9 +30,29 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        viewModel = this.viewModelProvider()
         loginAccount.inputType = InputType.TYPE_CLASS_NUMBER
         initClick()
+        initNetwork()
+    }
+
+    private fun initNetwork() {
+        observerAction(viewModel.loginLiveData) {
+            it?.let {response ->
+                response.isSuccess.yes {
+                    val user = it.respond
+                    saveLoginInfo(user.phone_number.toString(), user.password)
+                    startActivity<MainActivity> {  }
+                    this.finish()
+                }.otherwise {
+                    response.errorReason?.let { error ->
+                        toast(error)
+                    }
+                }
+            }
+        }
+
+
     }
 
     private fun initClick() {
@@ -47,23 +62,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun login() {
-        viewModel.loginLiveData?.observe(this, Observer {
-            if (it != null) {
-                if (it.isSuccess) {
-                    val user = it.respond
-                    saveLoginInfo(user.phone_number.toString(), user.password)
-                    this.intent(MainActivity::class.java)
-                    this.finish()
-                } else {
-                    it.errorReason?.let { error ->
-                        toast(error)
-                    }
-                }
-            } else {
-                toast(getString(R.string.network_error))
-            }
-        })
-
         if (loginAccount.text.isEmpty() or loginPassword.text.isEmpty()) {
             toast(getString(R.string.login_btn_error))
         } else {

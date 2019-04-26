@@ -57,16 +57,19 @@ class  PickImagePopUtil(private  val context: Activity) {
     /**
      * 对popWindow进行操作的地方
      */
-    fun popWindowAction(block: (PopupWindow) -> Unit) {
+    fun popWindowAction(block: (PopupWindow) -> Unit): PickImagePopUtil {
         block(popupWindow)
+        return this
     }
 
-    fun takePhotoAction(block: () -> Unit) {
+    fun takePhotoAction(block: () -> Unit): PickImagePopUtil {
         takeActionFun(object : TakePhoto{
             override fun takePhotoAction() {
                 block()
             }
         })
+
+        return this
     }
 
     fun selectPhotoAction(block: () -> Unit) {

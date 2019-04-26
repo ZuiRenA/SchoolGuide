@@ -219,7 +219,7 @@ class PersonDataActivity : BaseActivity(), View.OnClickListener {
             .optionOneCLick(getString(R.string.assign)) { content, dialog ->
                 TextUtils.isEmpty(content)
                     .yes { toast(getString(R.string.input_null_error)) }
-                     .otherwise {
+                    .otherwise {
                         when (type) {
                             NICKNAME -> {
                                 personNicknameStatus.text = content
