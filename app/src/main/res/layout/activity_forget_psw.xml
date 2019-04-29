@@ -5,7 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".login.ForgetPswActivity">
+        tools:context=".login.ForgetPswActivity"
+        android:background="@color/white">
 
     <ImageView
             android:layout_width="0dp"
@@ -21,81 +22,63 @@
             android:hint="@string/login_phone_number"
             android:theme="@style/LoginEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:id="@+id/forgetPhoneNumber"
+            android:background="@drawable/change_password_edit_one"
             android:inputType="number"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/imageViewForgetPhone"
-            android:layout_marginStart="8dp" android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewForgetPsw"/>
-    <ImageView
-            android:id="@+id/imageViewForgetPhone"
-            android:src="@drawable/phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="15dp"
-            app:layout_constraintTop_toTopOf="@+id/forgetPhoneNumber"
-            app:layout_constraintBottom_toBottomOf="@+id/forgetPhoneNumber"/>
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewForgetPsw" android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent" tools:ignore="TextFields"/>
+
     <com.example.schoolguide.mineView.CountdownButton
             android:id="@+id/btnCDForget"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="30dp"
-            android:textSize="12sp"
-            android:singleLine="true"
-            android:background="@drawable/btn_count_down_bg"
-            android:textColor="@color/white"
+            android:background="@drawable/change_password_message"
             app:layout_constraintEnd_toEndOf="@+id/forgetMessage"
             app:layout_constraintTop_toTopOf="@+id/forgetMessage"
-            app:layout_constraintBottom_toBottomOf="@+id/forgetMessage" android:layout_marginBottom="8dp"/>
+            app:layout_constraintBottom_toBottomOf="@+id/forgetMessage"
+            android:layout_marginEnd="5dp"/>
     <EditText
             android:hint="@string/login_message"
             android:theme="@style/LoginEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:id="@+id/forgetMessage"
+            android:background="@drawable/change_password_edit_three"
             android:inputType="number"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/forgetPhoneNumber" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/forgetPhoneNumber"/>
-    <ImageView
-            android:src="@drawable/passoword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewMessageFor"
-            app:layout_constraintTop_toTopOf="@+id/forgetMessage"
-            app:layout_constraintBottom_toBottomOf="@+id/forgetMessage"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewForgetPhone"
-            app:layout_constraintStart_toStartOf="@+id/imageViewForgetPhone"/>
-    <ImageView
-            android:src="@drawable/password_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageViewForget"
-            app:layout_constraintEnd_toEndOf="@+id/imageViewMessageFor"
-            app:layout_constraintStart_toStartOf="@+id/imageViewMessageFor"
-            app:layout_constraintTop_toTopOf="@+id/forgetPassword"
-            app:layout_constraintBottom_toBottomOf="@+id/forgetPassword"/>
+            android:layout_marginTop="1dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/forgetPhoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/forgetPhoneNumber"
+            app:layout_constraintEnd_toEndOf="@+id/forgetPhoneNumber"/>
     <EditText
             android:hint="@string/login_password_notice"
             android:theme="@style/LoginEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:id="@+id/forgetPassword"
             android:inputType="textPassword"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/imageViewForget"
-            android:layout_marginStart="8dp" android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/forgetMessage"/>
+            android:layout_marginTop="1dp"
+            android:background="@drawable/change_password_edit_two"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/forgetMessage"
+            app:layout_constraintStart_toStartOf="@+id/forgetMessage"
+            app:layout_constraintEnd_toEndOf="@+id/forgetMessage"/>
     <ImageView
             android:id="@+id/forgetPswShow"
             android:src="@drawable/password_unshow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/forgetPassword" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/forgetPassword" android:layout_marginEnd="15dp"
             app:layout_constraintTop_toTopOf="@+id/forgetPassword"
-            app:layout_constraintBottom_toBottomOf="@+id/forgetPassword" android:layout_marginBottom="4dp"/>
+            app:layout_constraintBottom_toBottomOf="@+id/forgetPassword"/>
     <TextView
             android:id="@+id/forgetBtnAssign"
             android:text="@string/assign"

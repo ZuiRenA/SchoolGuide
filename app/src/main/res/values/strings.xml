@@ -101,4 +101,7 @@
 
     <!--selectDor-->
     <string name="select_dor">选择宿舍</string>
+    
+    <!--setting-->
+    <string name="change_password_tittle">修改密码</string>c
 </resources>

@@ -8,6 +8,7 @@ import com.example.schoolguide.view.BaseActivity
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.extUtil.onClick
+import com.example.schoolguide.extUtil.startActivity
 import com.example.schoolguide.extUtil.toast
 import com.example.schoolguide.login.LoginActivity
 import com.example.schoolguide.model.LogoutEvent
@@ -34,7 +35,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         logout.setOnClickListener(this)
         clearCache.setOnClickListener(this)
         changePSW.onClick {
-
+            startActivity<ChangePasswordActivity> {  }
         }
     }
 

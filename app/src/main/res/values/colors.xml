@@ -18,4 +18,6 @@
     <color name="light_blue">#2bb2f8</color>
     <color name="dialog_bg_color">#A5000000</color>
     <color name="more_light_blue">#30b5fc</color>
+    <color name="change_password_btn">#d4237a</color>
+    <color name="change_password_line">#eaeaea</color>
 </resources>

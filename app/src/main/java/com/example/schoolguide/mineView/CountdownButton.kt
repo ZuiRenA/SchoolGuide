@@ -23,8 +23,8 @@ class CountdownButton(context: Context, attributeSet: AttributeSet) : Button(con
         @SuppressLint("SetTextI18n")
         override fun run() {
             this@CountdownButton.text = countTime.toString() + "s "
-            this@CountdownButton.background = resources.getDrawable(R.drawable.btn_count_down_bg)
-            this@CountdownButton.setTextColor(resources.getColor(R.color.white))
+            this@CountdownButton.background = resources.getDrawable(R.drawable.change_password_message)
+            this@CountdownButton.setTextColor(resources.getColor(R.color.black))
             this@CountdownButton.isEnabled = false
             if (countTime > 0) {
                 mHandler.postDelayed(this, 1000)
@@ -47,8 +47,8 @@ class CountdownButton(context: Context, attributeSet: AttributeSet) : Button(con
             this.text = "获取验证码"
         }
 
-        this.background = resources.getDrawable(R.drawable.btn_count_down_bg)
-        this.setTextColor(resources.getColor(R.color.white))
+        this.background = resources.getDrawable(R.drawable.change_password_message)
+        this.setTextColor(resources.getColor(R.color.black))
         countTime = 60
     }
 }
