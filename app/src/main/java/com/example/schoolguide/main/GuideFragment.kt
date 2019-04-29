@@ -47,7 +47,7 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
             }
 
             R.id.guideUpload -> {
-                (guideIdStatus.text == getString(R.string.yes_finish_info)).yes {
+                (guideIdStatus.text == getString(R.string.yes_finish_info)).no {
                     context?.startActivity<LetterUserActivity> {  }
                 }.otherwise { context?.toast(getString(R.string.finish_guide_info)) }
             }

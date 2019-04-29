@@ -139,7 +139,7 @@
     <ImageView
             android:src="@drawable/passoword"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/imageViewMessageRe"
             app:layout_constraintTop_toTopOf="@+id/registerMessage"
             app:layout_constraintBottom_toBottomOf="@+id/registerMessage"

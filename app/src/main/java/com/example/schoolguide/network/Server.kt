@@ -35,4 +35,7 @@ interface Server {
 
     @GET("message/{phone}")
     fun sendMessage(@Path("phone") phone: String): Call<isSuccess<Int>>
+
+    @POST("password")
+    fun changePassword(@Body password: Password): Call<isSuccess<User>>
 }

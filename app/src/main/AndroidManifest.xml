@@ -21,6 +21,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".mine.ChangePasswordActivity">
+        </activity>
         <activity android:name=".guide.SelectDorActivity">
         </activity>
         <activity android:name=".guide.LetterUserActivity">

@@ -7,4 +7,106 @@
         android:layout_height="match_parent"
         tools:context=".login.ForgetPswActivity">
 
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/imageViewForgetPsw"/>
+    <EditText
+            android:hint="@string/login_phone_number"
+            android:theme="@style/LoginEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/forgetPhoneNumber"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toEndOf="@+id/imageViewForgetPhone"
+            android:layout_marginStart="8dp" android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewForgetPsw"/>
+    <ImageView
+            android:id="@+id/imageViewForgetPhone"
+            android:src="@drawable/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="@+id/forgetPhoneNumber"
+            app:layout_constraintBottom_toBottomOf="@+id/forgetPhoneNumber"/>
+    <com.example.schoolguide.mineView.CountdownButton
+            android:id="@+id/btnCDForget"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:background="@drawable/btn_count_down_bg"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/forgetMessage"
+            app:layout_constraintTop_toTopOf="@+id/forgetMessage"
+            app:layout_constraintBottom_toBottomOf="@+id/forgetMessage" android:layout_marginBottom="8dp"/>
+    <EditText
+            android:hint="@string/login_message"
+            android:theme="@style/LoginEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/forgetMessage"
+            android:inputType="number"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/forgetPhoneNumber" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/forgetPhoneNumber"/>
+    <ImageView
+            android:src="@drawable/passoword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageViewMessageFor"
+            app:layout_constraintTop_toTopOf="@+id/forgetMessage"
+            app:layout_constraintBottom_toBottomOf="@+id/forgetMessage"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewForgetPhone"
+            app:layout_constraintStart_toStartOf="@+id/imageViewForgetPhone"/>
+    <ImageView
+            android:src="@drawable/password_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageViewForget"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewMessageFor"
+            app:layout_constraintStart_toStartOf="@+id/imageViewMessageFor"
+            app:layout_constraintTop_toTopOf="@+id/forgetPassword"
+            app:layout_constraintBottom_toBottomOf="@+id/forgetPassword"/>
+    <EditText
+            android:hint="@string/login_password_notice"
+            android:theme="@style/LoginEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/forgetPassword"
+            android:inputType="textPassword"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/imageViewForget"
+            android:layout_marginStart="8dp" android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/forgetMessage"/>
+    <ImageView
+            android:id="@+id/forgetPswShow"
+            android:src="@drawable/password_unshow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/forgetPassword" android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="@+id/forgetPassword"
+            app:layout_constraintBottom_toBottomOf="@+id/forgetPassword" android:layout_marginBottom="4dp"/>
+    <TextView
+            android:id="@+id/forgetBtnAssign"
+            android:text="@string/assign"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:background="@drawable/login_button"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent"/>
 </android.support.constraint.ConstraintLayout>
