@@ -95,11 +95,16 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
 
     private fun register() {
         if (message == registerMessage.text.toString().toInt()) {
-            viewModel.register(
-                registerName.text.toString(),
-                registerPhoneNumber.text.toString().toLong(),
-                registerPassword.text.toString()
-            )
+            if (registerPassword.text.isEmpty()) {
+                toast(getString(R.string.password_null_error))
+            } else {
+                viewModel.register(
+                    registerName.text.toString(),
+                    registerPhoneNumber.text.toString().toLong(),
+                    registerPassword.text.toString()
+                )
+            }
+
         } else {
             toast(getString(R.string.message_error))
         }

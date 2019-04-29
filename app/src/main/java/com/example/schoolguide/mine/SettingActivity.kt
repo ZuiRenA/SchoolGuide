@@ -17,6 +17,8 @@ import com.example.schoolguide.util.LoginUtil
 import kotlinx.android.synthetic.main.activity_setting.*
 import kotlinx.android.synthetic.main.base_toolbar.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class SettingActivity : BaseActivity(), View.OnClickListener {
 
@@ -27,6 +29,7 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         baseToolbarTitle.text = getString(R.string.setting)
         baseToolbar.setNavigationOnClickListener { finish() }
         cacheSize.text = CacheUtil.getTotalCacheSize(applicationContext)
+        EventBus.getDefault().register(this)
 
         initClick()
     }
@@ -65,4 +68,13 @@ class SettingActivity : BaseActivity(), View.OnClickListener {
         builder.create().show()
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun logOutEvent(event: LogoutEvent) {
+        finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 }

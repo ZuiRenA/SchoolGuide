@@ -68,7 +68,15 @@ class ForgetPswActivity : BaseActivity() {
         }
 
         forgetBtnAssign.onClick {
-            viewModel.changePassword(forgetPhoneNumber.text.toString().toLong(), forgetPassword.text.toString())
+            if (message == forgetMessage.text.toString().toInt()) {
+                if (forgetPassword.text.isEmpty()) {
+                    toast(getString(R.string.password_null_error))
+                } else {
+                    viewModel.changePassword(forgetPhoneNumber.text.toString().toLong(), forgetPassword.text.toString())
+                }
+            } else {
+                toast(getString(R.string.message_error))
+            }
         }
     }
 }
