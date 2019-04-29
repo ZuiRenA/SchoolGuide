@@ -8,7 +8,7 @@ fun <T> List<T>.copyToArrayList(): ArrayList<T> {
     return temp
 }
 
-fun <T, R> MutableList<T>.copyAction(baseMutableList: MutableList<R> , block:(R) -> T): MutableList<T>{
+fun <T, R> MutableList<T>.copyAction(baseMutableList: MutableList<R>, block: (R) -> T): MutableList<T> {
     baseMutableList.forEach {
         this.add(block(it))
     }

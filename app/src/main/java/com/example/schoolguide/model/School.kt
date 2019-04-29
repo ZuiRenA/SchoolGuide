@@ -40,3 +40,10 @@ data class SchoolGuideTime(
     val guide_time_one: String,
     val guide_time_two: String
 )
+
+data class Dormitory(
+    val school_id: Int?,
+    val dormitory_id: Int,
+    val dormitory_name: String,
+    val dormitory_student_list: List<String>
+)

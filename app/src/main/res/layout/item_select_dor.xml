@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:background="@color/white"
                                              android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/imageViewItemSelect"
+            android:background="@drawable/item_select_bg"
+            android:layout_width="0dp"
+            android:layout_height="80dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp" android:layout_marginTop="0.5dp"/>
+
+    <TextView
+            android:id="@+id/textViewItemSelect"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/imageViewItemSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewItemSelect"
+            app:layout_constraintStart_toStartOf="@+id/imageViewItemSelect" android:layout_marginStart="8dp"/>
+
+    <TextView
+            android:id="@+id/textViewDorOne"
+            android:background="@drawable/item_select_bg"
+            android:text="已有人"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toTopOf="@+id/textViewDorTwo"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDorTwo" android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDorTwo"/>
+    <TextView
+            android:id="@+id/textViewDorTwo"
+            android:background="@drawable/item_select_bg"
+            android:text="已有人"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDorFour"
+            app:layout_constraintTop_toTopOf="@+id/imageViewItemSelect"
+            android:layout_marginEnd="20dp" app:layout_constraintEnd_toEndOf="@+id/imageViewItemSelect"/>
+    <TextView
+            android:id="@+id/textViewDorThree"
+            android:background="@drawable/item_select_bg"
+            android:text="已有人"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toTopOf="@+id/textViewDorFour"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDorFour" android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDorFour"/>
+    <TextView
+            android:id="@+id/textViewDorFour"
+            android:background="@drawable/item_select_bg"
+            android:text="已有人"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDorTwo"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewItemSelect"
+            android:layout_marginEnd="20dp" app:layout_constraintEnd_toEndOf="@+id/imageViewItemSelect"/>
 
 </android.support.constraint.ConstraintLayout>

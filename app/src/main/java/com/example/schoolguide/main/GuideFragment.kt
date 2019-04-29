@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.guide.LetterUserActivity
+import com.example.schoolguide.guide.SelectDorActivity
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.model.User
 import com.example.schoolguide.util.LoginUtil
@@ -53,7 +54,7 @@ class GuideFragment : BaseFragment(), View.OnClickListener {
             }
 
             R.id.fabGuide -> {
-                context?.toast("")
+                context?.startActivity<SelectDorActivity> {  }
             }
         }
     }
