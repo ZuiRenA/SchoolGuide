@@ -47,3 +47,9 @@ data class Dormitory(
     val dormitory_name: String,
     val dormitory_student_list: List<String>
 )
+
+data class SelectDor(
+    val phone_number: Long,
+    val id: Int,
+    val index: Int
+)

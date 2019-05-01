@@ -13,6 +13,7 @@ import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.main.MineAdapter
 import com.example.schoolguide.model.Dormitory
+import com.example.schoolguide.util.LoginUtil
 import com.example.schoolguide.view.BaseActivity
 import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory
 import kotlinx.android.synthetic.main.activity_select_dor.*
@@ -23,6 +24,8 @@ class SelectDorActivity : BaseActivity() {
     private lateinit var mAdapter: DorAdapter
     private var data: MutableList<Dormitory> = mutableListOf()
     private lateinit var viewModel: SelectDorViewModel
+    private var id = -1
+    private var index = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +36,18 @@ class SelectDorActivity : BaseActivity() {
         baseToolbar.setNavigationOnClickListener { finish() }
         initAdapter()
         initNetwork()
+        initClick()
         viewModel.dormitory(id = 1)
+    }
+
+    private fun initClick() {
+        textViewSelectDor.onClick {
+            if (id or index == -1) {
+                toast(getString(R.string.please_select_dor))
+            } else {
+                viewModel.select(LoginUtil.user?.phone_number ?: -1, id, index)
+            }
+        }
     }
 
     private fun initNetwork() {
@@ -44,6 +58,17 @@ class SelectDorActivity : BaseActivity() {
                     mAdapter.addData(data)
                     mAdapter.notifyDataSetChanged()
                 }
+            }
+        }
+
+        observerAction(viewModel.selectDorLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    toast(response.respond)
+                }.otherwise {
+                    response.errorReason?.let { error ->
+                        toast(error)
+                    } }
             }
         }
     }
@@ -57,12 +82,28 @@ class SelectDorActivity : BaseActivity() {
         recyclerSelectDor.adapter = mAdapter
 
         mAdapter.setOnItemChildClickListener { _, view, position ->
-            view.setBackgroundResource(R.drawable.change_password_btn)
-            mAdapter.helperList[position].allChildViewFilterIdAndAction<TextView>(view?.id) {
-                it?.setBackgroundResource(R.drawable.item_select_bg)
+            mAdapter.helperList.forEach {
+                it.allChildView<TextView> { childView ->
+                    childView?.setBackgroundResource(R.drawable.item_select_bg)
+                }
             }
+
+            view.setBackgroundResource(R.drawable.change_password_btn)
+            val indexBtn = switch(view.id)
+            id = data[position].dormitory_id
+            index = indexBtn
         }
     }
+
+    private fun switch(id: Int): Int =
+        when(id) {
+            R.id.textViewDorOne -> { 0 }
+            R.id.textViewDorTwo -> { 1 }
+            R.id.textViewDorThree -> { 2 }
+            R.id.textViewDorFour -> { 3 }
+            else -> { -1 }
+        }
+
 }
 
 class DorAdapter(resId: Int, data: List<Dormitory>): BaseQuickAdapter<Dormitory, BaseViewHolder>(resId, data) {
@@ -79,7 +120,7 @@ class DorAdapter(resId: Int, data: List<Dormitory>): BaseQuickAdapter<Dormitory,
         temp.forEachIndexed { index, s ->
             if (s != AppContext.getString(R.string.yes_people))
                 helper?.addOnClickListener(id[index])
-        }+
+        }
 
         helperList.add(helper)
     }
@@ -97,13 +138,11 @@ class DorAdapter(resId: Int, data: List<Dormitory>): BaseQuickAdapter<Dormitory,
     }
 }
 
-fun <T: View> BaseViewHolder?.allChildViewFilterIdAndAction(id: Int?, block:(T?) -> Unit) {
+fun <T: View> BaseViewHolder?.allChildView(block:(T?) -> Unit) {
     val childId = this?.childClickViewIds
     childId?.forEach {
-        if (id != it) {
-            val view = this?.getView<T>(it)
-            block(view)
-        }
+        val view = this?.getView<T>(it)
+        block(view)
     }
 }
 

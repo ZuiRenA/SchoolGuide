@@ -104,6 +104,7 @@
     <string name="select_dor">选择宿舍</string>
     <string name="yes_people">已有人</string>
     <string name="no_people">空</string>
+    <string name="please_select_dor">请选择宿舍</string>
     
     <!--setting-->
     <string name="change_password_tittle">修改密码</string>c

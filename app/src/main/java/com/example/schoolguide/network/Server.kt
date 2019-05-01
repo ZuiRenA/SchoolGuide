@@ -41,4 +41,7 @@ interface Server {
 
     @GET("dormitory/{id}")
     fun dormitory(@Path("id") id: Int): Call<isSuccess<List<Dormitory>>>
+
+    @POST("select/dormitory")
+    fun selectDor(@Body selectDor: SelectDor): Call<isSuccess<String>>
 }
