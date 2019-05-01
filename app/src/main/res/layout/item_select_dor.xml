@@ -26,7 +26,6 @@
     <TextView
             android:id="@+id/textViewDorOne"
             android:background="@drawable/item_select_bg"
-            android:text="已有人"
             android:textSize="12sp"
             android:gravity="center"
             android:layout_width="80dp"
@@ -37,7 +36,6 @@
     <TextView
             android:id="@+id/textViewDorTwo"
             android:background="@drawable/item_select_bg"
-            android:text="已有人"
             android:textSize="12sp"
             android:gravity="center"
             android:layout_width="80dp"
@@ -48,7 +46,6 @@
     <TextView
             android:id="@+id/textViewDorThree"
             android:background="@drawable/item_select_bg"
-            android:text="已有人"
             android:textSize="12sp"
             android:gravity="center"
             android:layout_width="80dp"
@@ -59,7 +56,6 @@
     <TextView
             android:id="@+id/textViewDorFour"
             android:background="@drawable/item_select_bg"
-            android:text="已有人"
             android:textSize="12sp"
             android:gravity="center"
             android:layout_width="80dp"

@@ -38,4 +38,7 @@ interface Server {
 
     @POST("password")
     fun changePassword(@Body password: Password): Call<isSuccess<User>>
+
+    @GET("dormitory/{id}")
+    fun dormitory(@Path("id") id: Int): Call<isSuccess<List<Dormitory>>>
 }

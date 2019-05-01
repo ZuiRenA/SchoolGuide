@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.schoolguide.AppContext
 import com.example.schoolguide.R
+import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.main.MineAdapter
 import com.example.schoolguide.model.Dormitory
 import com.example.schoolguide.view.BaseActivity
@@ -21,24 +22,36 @@ import java.util.LinkedHashSet
 class SelectDorActivity : BaseActivity() {
     private lateinit var mAdapter: DorAdapter
     private var data: MutableList<Dormitory> = mutableListOf()
+    private lateinit var viewModel: SelectDorViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_dor)
+        viewModel = viewModelProvider()
 
         baseToolbarTitle.text = getString(R.string.select_dor)
         baseToolbar.setNavigationOnClickListener { finish() }
         initAdapter()
+        initNetwork()
+        viewModel.dormitory(id = 1)
+    }
+
+    private fun initNetwork() {
+        observerAction(viewModel.dormitoryLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    data = response.respond as MutableList<Dormitory>
+                    mAdapter.addData(data)
+                    mAdapter.notifyDataSetChanged()
+                }
+            }
+        }
     }
 
     private fun initAdapter() {
         val mLayoutManager = LinearLayoutManager(this)
         mLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerSelectDor.layoutManager = mLayoutManager
-
-        for (i in 0..10) {
-            data.add(Dormitory(1, 1, "aas", listOf()))
-        }
 
         mAdapter = DorAdapter(R.layout.item_select_dor, data)
         recyclerSelectDor.adapter = mAdapter
@@ -56,11 +69,31 @@ class DorAdapter(resId: Int, data: List<Dormitory>): BaseQuickAdapter<Dormitory,
     var helperList: MutableList<BaseViewHolder?> = mutableListOf()
 
     override fun convert(helper: BaseViewHolder?, item: Dormitory?) {
-        helper?.addOnClickListener(R.id.textViewDorOne)
-            ?.addOnClickListener(R.id.textViewDorTwo)
-            ?.addOnClickListener(R.id.textViewDorThree)
-            ?.addOnClickListener(R.id.textViewDorFour)
+        val temp = textSwitch(item?.dormitory_student_list)
+        val id = listOf(R.id.textViewDorOne, R.id.textViewDorTwo, R.id.textViewDorThree, R.id.textViewDorFour)
+        helper?.setText(R.id.textViewItemSelect, item?.dormitory_name)
+            ?.setText(R.id.textViewDorOne, temp[0])
+            ?.setText(R.id.textViewDorTwo, temp[1])
+            ?.setText(R.id.textViewDorThree, temp[2])
+            ?.setText(R.id.textViewDorFour, temp[3])
+        temp.forEachIndexed { index, s ->
+            if (s != AppContext.getString(R.string.yes_people))
+                helper?.addOnClickListener(id[index])
+        }+
+
         helperList.add(helper)
+    }
+
+    private fun textSwitch(list: List<String>?): List<String> {
+        val temp = mutableListOf<String>()
+        list?.forEach {
+            it.isNotNullAndEmpty().yes {
+                temp.add(AppContext.getString(R.string.yes_people))
+            }.otherwise {
+                temp.add(AppContext.getString(R.string.no_people))
+            }
+        }
+        return temp
     }
 }
 
