@@ -21,7 +21,8 @@ data class User(
     val user_name: String? = null,
     val user_id_card: String? = null,
     val user_dormitory: String? = null,
-    val user_letter: String? = null
+    val user_letter: String? = null,
+    val user_permission: String? = null
 )
 
 data class Letter(

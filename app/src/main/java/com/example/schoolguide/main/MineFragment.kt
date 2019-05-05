@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.schoolguide.R
+import com.example.schoolguide.admin.AdminActivity
 import com.example.schoolguide.extUtil.intent
 import com.example.schoolguide.extUtil.show
 import com.example.schoolguide.extUtil.startActivity
@@ -30,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_mine.view.*
 
 class MineFragment : BaseFragment() {
 
-    private lateinit var item: List<Mine>
+    private lateinit var item: MutableList<Mine>
     private lateinit var mAdapter: MineAdapter
     private lateinit var mineRecycler: RecyclerView
 
@@ -40,20 +41,26 @@ class MineFragment : BaseFragment() {
 
         private const val PersonData = 0
         private const val Setting =1
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        private const val Admin = 2
     }
 
     override fun onStart() {
         super.onStart()
-        item = listOf(Mine(R.drawable.mine_person_data, resources.getString(R.string.person_data)),
+        item = mutableListOf(Mine(R.drawable.mine_person_data, resources.getString(R.string.person_data)),
             Mine(R.drawable.mine_setting, resources.getString(R.string.setting)))
 
         refreshMine.setOnRefreshListener { refresh ->
             view?.let { init(it) }
             refresh.finishRefresh()
+        }
+
+        LoginUtil.user?.user_permission?.let {
+            if (it.toBoolean()) {
+                item.add(
+                    Mine(name = getString(R.string.admin_mode),
+                        icon = R.drawable.admin
+                ))
+            }
         }
 
         initAdapter()
@@ -75,6 +82,10 @@ class MineFragment : BaseFragment() {
 
                 Setting -> {
                     context?.startActivity<SettingActivity> {   }
+                }
+
+                Admin -> {
+                    context?.startActivity<AdminActivity> {  }
                 }
             }
         }

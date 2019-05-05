@@ -32,8 +32,10 @@ class LoginViewModel : ViewModel() {
                 }
 
                 override fun onResponse(call: Call<isSuccess<User>>, response: Response<isSuccess<User>>) {
-                    if (response.body()!!.isSuccess) {
-                        LoginUtil.user = response.body()!!.respond
+                    response.body()?.let {
+                        if (it.isSuccess) {
+                            LoginUtil.user = it.respond
+                        }
                     }
 
                     loginLiveData?.value = response.body()
@@ -50,10 +52,11 @@ class LoginViewModel : ViewModel() {
                 }
 
                 override fun onResponse(call: Call<isSuccess<User>>, response: Response<isSuccess<User>>) {
-                    if (response.body()!!.isSuccess) {
-                        LoginUtil.user = response.body()!!.respond
+                    response.body()?.let {
+                        if (it.isSuccess) {
+                            LoginUtil.user = it.respond
+                        }
                     }
-
                     registerLiveData?.value = response.body()
                 }
             })

@@ -42,6 +42,7 @@
 
     <!--mine-->
     <string name="person_data">个人资料</string>
+    <string name="admin_mode">管理员模式</string>
     <string name="setting">设置</string>
     <string name="take_photo">拍照</string>
     <string name="choice_photo">从相册中选取</string>
@@ -105,7 +106,7 @@
     <string name="yes_people">已有人</string>
     <string name="no_people">空</string>
     <string name="please_select_dor">请选择宿舍</string>
-    
+
     <!--setting-->
     <string name="change_password_tittle">修改密码</string>c
 </resources>
