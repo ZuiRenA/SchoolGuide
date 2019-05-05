@@ -7,4 +7,19 @@
         android:layout_height="match_parent"
         tools:context=".admin.AdminActivity">
 
+    <FrameLayout
+            android:id="@+id/adminContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/adminBottomBar"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+            android:id="@+id/adminBottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>

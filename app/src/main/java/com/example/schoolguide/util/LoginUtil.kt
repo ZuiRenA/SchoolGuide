@@ -1,5 +1,6 @@
 package com.example.schoolguide.util
 
+import android.util.Log
 import com.example.schoolguide.model.User
 import com.tencent.mmkv.MMKV
 
@@ -22,10 +23,18 @@ object LoginUtil {
     fun saveLoginInfo(account: String?, password: String?) {
         kv.encode(User_Account, account)
         kv.encode(User_Password, password)
+        Log.d("mmkv", "save account = $account")
+        Log.d("mmkv", "save password = $password")
     }
 
-    fun getLoginInfo(): UserInfo =
-        UserInfo(kv.decodeString(User_Account, Null_String), kv.decodeString(User_Password, Null_String))
+    fun getLoginInfo(): UserInfo {
+        val userAccount = kv.decodeString(User_Account, Null_String)
+        val userPassword = kv.decodeString(User_Password, Null_String)
+        Log.d("mmkv", "get account = $userAccount")
+        Log.d("mmkv0", "get password = $userPassword")
+        return UserInfo(userAccount, userPassword)
+    }
+
 
     fun clearLoginInfo() {
         kv.clearAll()

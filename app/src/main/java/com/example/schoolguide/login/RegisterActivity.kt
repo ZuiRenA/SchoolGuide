@@ -83,7 +83,7 @@ class RegisterActivity : BaseActivity(), View.OnClickListener {
                         toast(error)
                     }
                 }
-            }.run { toast(getString(R.string.network_error)) }
+            }
         }
     }
 

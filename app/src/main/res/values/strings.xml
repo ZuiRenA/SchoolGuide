@@ -108,5 +108,11 @@
     <string name="please_select_dor">请选择宿舍</string>
 
     <!--setting-->
-    <string name="change_password_tittle">修改密码</string>c
+    <string name="change_password_tittle">修改密码</string>
+
+    <!--admin-->
+    <string name="user_table">用户表</string>
+    <string name="school_table">学校信息表</string>
+    <string name="guide_table">报到表</string>
+    <string name="dormitory_table">宿舍表</string>
 </resources>
