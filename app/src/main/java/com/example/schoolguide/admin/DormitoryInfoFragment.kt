@@ -1,7 +1,5 @@
 package com.example.schoolguide.admin
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-
 import com.example.schoolguide.R
+import com.example.schoolguide.extUtil.onClick
 import com.example.schoolguide.extUtil.viewModelProvider
+import com.example.schoolguide.model.AdminFinishEvent
 import com.example.schoolguide.model.Dormitory
-import com.example.schoolguide.model.SchoolInfo
+import kotlinx.android.synthetic.main.base_toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 
 class DormitoryInfoFragment : Fragment() {
@@ -30,11 +30,14 @@ class DormitoryInfoFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        initRecycler()
-    }
 
-    private fun initRecycler() {
+        baseToolbar.setNavigationOnClickListener { EventBus.getDefault().post(AdminFinishEvent()) }
+        baseToolbarTitle.text = getString(R.string.dormitory_table)
+        baseToolbarTV.visibility = View.VISIBLE
+        baseToolbarTV.text = getString(R.string.add_table)
+        baseToolbarTV.onClick {
 
+        }
     }
 
     companion object {

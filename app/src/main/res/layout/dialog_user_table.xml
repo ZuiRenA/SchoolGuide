@@ -1,41 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+
+<ScrollView
+        android:id="@+id/dialogUser"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:background="@color/dialog_bg_color"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
-    <TextView
-            android:id="@+id/bigDick"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="@+id/dialogUserNick"
-            app:layout_constraintEnd_toEndOf="@+id/dialogUserNick"
-            app:layout_constraintBottom_toTopOf="@+id/dialogUserNick"/>
+    <android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+                                                 android:layout_height="wrap_content">
+        <ImageButton
+                android:id="@+id/dialogUserFinish"
+                android:src="@drawable/black_x"
+                android:background="@color/white"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"/>
 
-    <EditText
-            android:id="@+id/dialogUserNick"
-            android:background="@drawable/change_password_edit_one"
-            android:layout_width="0dp"
-            android:hint="@string/user_nickname"
-            android:layout_height="50dp"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp" android:layout_marginEnd="15dp"
-            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="120dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <EditText
+                android:id="@+id/dialogUserNick"
+                android:background="@drawable/change_password_edit_one"
+                android:layout_width="0dp"
+                android:hint="@string/user_nickname"
+                android:textColorHint="@color/default_text_view_color"
+                android:textSize="14sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="15dp" android:layout_marginEnd="15dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserFinish" android:layout_marginTop="15dp"/>
 
-    <Button
-            android:id="@+id/testBtn"
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:text="@string/assign"
-            android:layout_height="60dp"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="15dp" android:layout_marginEnd="15dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <EditText
+                android:id="@+id/dialogUserPhone"
+                android:paddingStart="15dp"
+                android:textColorHint="@color/default_text_view_color"
+                android:paddingEnd="15dp"
+                android:background="@drawable/change_password_edit_three"
+                android:hint="@string/user_phone"
+                android:textSize="14sp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserNick"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserNick"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserNick"/>
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+                android:id="@+id/dialogUserPassword"
+                android:background="@drawable/change_password_edit_three"
+                android:hint="@string/user_password"
+                android:textSize="14sp"
+                android:paddingStart="15dp"
+                android:textColorHint="@color/default_text_view_color"
+                android:paddingEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserPhone"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserPhone"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserPhone"/>
+
+        <TextView
+                android:id="@+id/dialogUserSchool"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/change_password_edit_three"
+                android:text="@string/user_select_school"
+                android:paddingStart="15dp"
+                android:textColorHint="@color/default_text_view_color"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserPassword"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserPassword"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserPassword" tools:ignore="RtlSymmetry"/>
+
+        <ImageView
+                android:src="@drawable/more_pull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserSchool" android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/dialogUserPassword"
+                android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="@+id/dialogUserSchool"/>
+
+        <TextView
+                android:id="@+id/dialogUserCollege"
+                android:background="@drawable/change_password_edit_three"
+                android:textSize="14sp"
+                android:paddingStart="15dp"
+                android:textColorHint="@color/default_text_view_color"
+                android:text="@string/user_select_college"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserSchool"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserSchool"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserSchool"/>
+        <ImageView
+                android:src="@drawable/more_pull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserCollege" android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="@+id/dialogUserCollege"
+                app:layout_constraintBottom_toBottomOf="@+id/dialogUserCollege"/>
+
+        <EditText
+                android:id="@+id/dialogUserName"
+                android:background="@drawable/change_password_edit_three"
+                android:hint="@string/user_name"
+                android:textColorHint="@color/default_text_view_color"
+                android:textSize="14sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserCollege"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserCollege"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserCollege"/>
+
+        <EditText
+                android:id="@+id/dialogUserIdCard"
+                android:background="@drawable/change_password_edit_three"
+                android:hint="@string/user_id_card"
+                android:textColorHint="@color/default_text_view_color"
+                android:textSize="14sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserName"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserName"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserName"/>
+
+        <EditText
+                android:id="@+id/dialogUserDormitory"
+                android:background="@drawable/change_password_edit_two"
+                android:hint="@string/user_dormitory"
+                android:textColorHint="@color/default_text_view_color"
+                android:textSize="14sp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintStart_toStartOf="@+id/dialogUserIdCard"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserIdCard"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserIdCard"/>
+
+
+        <Button
+                android:id="@+id/dialogUserAssign"
+                android:layout_width="0dp"
+                android:background="@drawable/change_password_btn"
+                android:layout_height="60dp"
+                android:textColor="@color/change_password_btn"
+                android:text="@string/assign"
+                android:textSize="18sp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="150dp"
+                app:layout_constraintTop_toBottomOf="@+id/dialogUserDormitory"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

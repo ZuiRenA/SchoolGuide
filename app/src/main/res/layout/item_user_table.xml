@@ -31,10 +31,18 @@
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/userPlaceImg"
-            app:layout_constraintTop_toTopOf="@+id/userPlaceImg"/>
+            app:layout_constraintTop_toTopOf="@+id/userPlaceImg" app:layout_constraintEnd_toStartOf="@+id/userTableMore"
+            android:layout_marginEnd="15dp"/>
+
+    <ImageView
+            android:id="@+id/userTableMore"
+            android:src="@drawable/table_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/userPlaceImg" android:layout_marginEnd="15dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/userPlaceImg"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/userTableContent"/>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/userTableContent"

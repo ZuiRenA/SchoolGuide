@@ -5,6 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +20,11 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.mineView.BaseDialog
+import com.example.schoolguide.model.AdminFinishEvent
 import com.example.schoolguide.model.User
 import kotlinx.android.synthetic.main.base_toolbar.*
 import kotlinx.android.synthetic.main.fragment_user_info.*
+import org.greenrobot.eventbus.EventBus
 
 class UserInfoFragment : Fragment() {
 
@@ -49,25 +52,39 @@ class UserInfoFragment : Fragment() {
         initRecycler()
 
         viewModel.getUserTable()
+
+        baseToolbar.setNavigationOnClickListener { EventBus.getDefault().post(AdminFinishEvent()) }
         baseToolbarTitle.text = getString(R.string.user_table)
         baseToolbarTV.visibility = View.VISIBLE
         baseToolbarTV.text = getString(R.string.add_table)
-        baseToolbarTV.onClick {
-            dialogShow()
-        }
+        baseToolbarTV.onClick { dialogShow() }
     }
 
 
     private fun dialogShow() {
         context?.let {
             BaseDialog(it, R.layout.dialog_user_table)
-                .init { dialog ->
-                    dialog.getView<TextView>(R.id.bigDick).text = "aaaa"
+                .init {
+
                 }
-                .addItemClick(R.id.testBtn) { dialog, _ ->
-                    userNick = dialog.getView<EditText>(R.id.dialogUserNick).text.toString()
-                    context?.toast(userNick ?: "无")
-                    dialog.dismiss()
+                .addItemClickList(
+                    listOf(
+                        R.id.dialogUserFinish,
+                        R.id.dialogUserSchool, R.id.dialogUserCollege, R.id.dialogUserAssign
+                    )
+                ) { dialog, view ->
+                    when (view?.id) {
+                        R.id.dialogUserFinish -> { dialog.dismiss() }
+                        R.id.dialogUserSchool -> {
+                            Log.d("dialog: ", "listener: School")
+                        }
+                        R.id.dialogUserCollege -> {
+                            Log.d("dialog: ", "listener: College")
+                        }
+                        R.id.dialogUserAssign -> {
+                            Log.d("dialog: ", "listener: Assign")
+                        }
+                    }
                 }
                 .show()
         }
@@ -98,6 +115,19 @@ class UserInfoFragment : Fragment() {
         item = mutableListOf()
         mAdapter = UserTableAdapter(R.layout.item_user_table, item)
         userRecycler.adapter = mAdapter
+
+        mAdapter.setOnItemChildClickListener { _, view, _ ->
+            view.showMorePopWindowMenu(dataList = listOf("修改", "删除")) { _, _, positionInner, _ ->
+                when(positionInner) {
+                    0 -> {
+                        context?.toast("修改")
+                    }
+                    1 -> {
+                        context?.toast("删除")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -116,6 +146,7 @@ class UserTableAdapter(resId: Int, data: List<User>) : BaseQuickAdapter<User, Ba
             setText(R.id.userCollege, "学院：" + item?.user_college)
             setText(R.id.userIdCard, "身份证：" + item?.user_id_card)
             setText(R.id.userDor, "宿舍：" + item?.user_dormitory)
+            addOnClickListener(R.id.userTableMore)
 
             action<ImageView>(R.id.userAvatar) {
                 it.show(

@@ -10,9 +10,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 
 import com.example.schoolguide.R
+import com.example.schoolguide.extUtil.onClick
 import com.example.schoolguide.extUtil.viewModelProvider
 import com.example.schoolguide.mineView.BaseDialog
+import com.example.schoolguide.model.AdminFinishEvent
 import com.example.schoolguide.model.SchoolGuideTime
+import kotlinx.android.synthetic.main.base_toolbar.*
+import org.greenrobot.eventbus.EventBus
 
 class GuideInfoFragment : Fragment() {
 
@@ -28,6 +32,14 @@ class GuideInfoFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        baseToolbar.setNavigationOnClickListener { EventBus.getDefault().post(AdminFinishEvent()) }
+        baseToolbarTitle.text = getString(R.string.guide_table)
+        baseToolbarTV.visibility = View.VISIBLE
+        baseToolbarTV.text = getString(R.string.change_table)
+        baseToolbarTV.onClick {
+
+        }
     }
 
     companion object {

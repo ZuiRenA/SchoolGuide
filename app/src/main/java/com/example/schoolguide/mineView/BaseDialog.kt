@@ -35,28 +35,35 @@ class BaseDialog(context: Context, @LayoutRes val idRes: Int, @StyleRes styleRes
         views.forEach {
             getView<View>(it).setOnClickListener(this)
         }
+
+
     }
 
     fun <T : View> getView(@IdRes id: Int): T {
         return findViewById(id)
     }
 
-    fun addItemClick(@IdRes id: Int, block: (BaseDialog, View) -> Unit): BaseDialog {
+    fun addItemClick(@IdRes id: Int): BaseDialog {
         views.add(id)
-        initClick(object : OnItemClickListener{
-            override fun onItemClick(dialog: BaseDialog, view: View?) {
-                when(view?.id) {
-                    id -> {
-                        block(this@BaseDialog, view)
-                    }
-                }
-            }
-        })
-
         return this
     }
 
-    fun init(block: (BaseDialog) -> Unit): BaseDialog {
+    fun addItemClickList(@IdRes idList: List<Int>, block: (dialog: BaseDialog, view: View?) -> Unit): BaseDialog {
+        views.addAll(idList)
+        initClick(object : OnItemClickListener {
+            override fun onItemClick(dialog: BaseDialog, view: View?) {
+                block(dialog, view)
+            }
+        })
+        return this
+    }
+
+    fun initClick(listener: OnItemClickListener): BaseDialog {
+        this.listener = listener
+        return this
+    }
+
+    fun init(block: (dialog: BaseDialog) -> Unit): BaseDialog {
         initDialog(object : DialogInit {
             override fun init() {
                 block(this@BaseDialog)
@@ -69,13 +76,13 @@ class BaseDialog(context: Context, @LayoutRes val idRes: Int, @StyleRes styleRes
         init = initDialog
     }
 
-    private fun initClick(listener: OnItemClickListener) {
-        this.listener = listener
-    }
+
 
     interface DialogInit {
         fun init()
     }
+
+
 
     interface OnItemClickListener {
         fun onItemClick(dialog: BaseDialog, view: View?)

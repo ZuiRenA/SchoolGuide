@@ -116,8 +116,17 @@
     <string name="school_table">学校信息表</string>
     <string name="guide_table">报到表</string>
     <string name="dormitory_table">宿舍表</string>
+    <string name="add_table">新增</string>
+    <string name="change_table">修改</string>
 
     <!--dialog-->
     <string name="user_nickname">昵称</string>
-    <string name="add_table">新增</string>
+    <string name="user_phone">手机号</string>
+    <string name="user_password">密码</string>
+    <string name="user_name">姓名</string>
+    <string name="user_dormitory">宿舍号</string>
+    <string name="user_id_card">身份证号</string>
+    <string name="user_select_school">选择学校</string>
+    <string name="user_select_college">选择学院</string>
+
 </resources>

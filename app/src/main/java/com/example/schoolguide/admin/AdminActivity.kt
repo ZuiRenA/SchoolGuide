@@ -6,7 +6,11 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.action
 import com.example.schoolguide.extUtil.replace
+import com.example.schoolguide.model.AdminFinishEvent
 import com.example.schoolguide.view.BaseActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class AdminActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener {
 
@@ -37,13 +41,17 @@ class AdminActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener 
         attachBar()
         bottomNavigationBar.setTabSelectedListener(this)
 
-
-
         if (savedInstanceState == null) {
             supportFragmentManager.replace(R.id.adminContainer, fragmentUserInfo)
             bottomNavigationBar.setFirstSelectedPosition(lastSelectedPosition)
         }
 
+        EventBus.getDefault().register(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun finishEvent(event: AdminFinishEvent) {
+        finish()
     }
 
     private fun attachBar() {
@@ -97,5 +105,10 @@ class AdminActivity : BaseActivity(), BottomNavigationBar.OnTabSelectedListener 
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }
