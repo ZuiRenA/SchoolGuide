@@ -106,6 +106,7 @@
     <string name="yes_people">已有人</string>
     <string name="no_people">空</string>
     <string name="please_select_dor">请选择宿舍</string>
+    <string name="select_dor_success">选择宿舍成功</string>
 
     <!--setting-->
     <string name="change_password_tittle">修改密码</string>
@@ -115,4 +116,8 @@
     <string name="school_table">学校信息表</string>
     <string name="guide_table">报到表</string>
     <string name="dormitory_table">宿舍表</string>
+
+    <!--dialog-->
+    <string name="user_nickname">昵称</string>
+    <string name="add_table">新增</string>
 </resources>

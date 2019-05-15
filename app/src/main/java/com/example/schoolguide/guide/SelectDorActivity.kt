@@ -24,7 +24,7 @@ class SelectDorActivity : BaseActivity() {
     private lateinit var mAdapter: DorAdapter
     private var data: MutableList<Dormitory> = mutableListOf()
     private lateinit var viewModel: SelectDorViewModel
-    private var id = -1
+    private var selectId = -1
     private var index = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +42,10 @@ class SelectDorActivity : BaseActivity() {
 
     private fun initClick() {
         textViewSelectDor.onClick {
-            if (id or index == -1) {
+            if (selectId or index == -1) {
                 toast(getString(R.string.please_select_dor))
             } else {
-                viewModel.select(LoginUtil.user?.phone_number ?: -1, id, index)
+                viewModel.select(LoginUtil.user?.phone_number ?: -1, selectId, index)
             }
         }
     }
@@ -64,7 +64,7 @@ class SelectDorActivity : BaseActivity() {
         observerAction(viewModel.selectDorLiveData) {
             it?.let { response ->
                 response.isSuccess.yes {
-                    toast(response.respond)
+                    toast(getString(R.string.select_dor_success))
                 }.otherwise {
                     response.errorReason?.let { error ->
                         toast(error)
@@ -90,7 +90,7 @@ class SelectDorActivity : BaseActivity() {
 
             view.setBackgroundResource(R.drawable.change_password_btn)
             val indexBtn = switch(view.id)
-            id = data[position].dormitory_id
+            selectId = data[position].dormitory_id
             index = indexBtn
         }
     }

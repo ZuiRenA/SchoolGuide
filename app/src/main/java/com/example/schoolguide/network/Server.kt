@@ -44,4 +44,7 @@ interface Server {
 
     @POST("select/dormitory")
     fun selectDor(@Body selectDor: SelectDor): Call<isSuccess<String>>
+
+    @GET("userTable")
+    fun userTable(): Call<isSuccess<List<User>>>
 }

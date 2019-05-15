@@ -16,9 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.example.schoolguide.R
 import com.example.schoolguide.admin.AdminActivity
-import com.example.schoolguide.extUtil.intent
-import com.example.schoolguide.extUtil.show
-import com.example.schoolguide.extUtil.startActivity
+import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.mine.PersonDataActivity
 import com.example.schoolguide.mine.SettingActivity
 import com.example.schoolguide.model.Mine

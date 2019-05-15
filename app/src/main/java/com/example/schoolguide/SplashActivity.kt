@@ -33,7 +33,7 @@ class SplashActivity : BaseActivity(), EasyPermissions.PermissionCallbacks {
         setContentView(R.layout.activity_splash)
 
         splashImg.visibility = View.VISIBLE
-        Glide.with(this).load(R.mipmap.gif_02)
+        Glide.with(this).load(R.drawable.splash1)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(splashImg)
 
