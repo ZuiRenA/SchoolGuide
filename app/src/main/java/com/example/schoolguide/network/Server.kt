@@ -56,4 +56,10 @@ interface Server {
 
     @GET("delete/dormitory/{id}")
     fun deleteDormitory(@Path("id") id: Int): Call<isSuccess<Void>>
+
+    @POST("update/user")
+    fun updateUser(@Body user: User): Call<isSuccess<User>>
+
+    @POST("update/school")
+    fun updateSchool(@Body school: SchoolInfo): Call<isSuccess<SchoolInfo>>
 }

@@ -6,33 +6,12 @@ data class GuideTime(
     var day: Int
 )
 
-data class Guide(
-    var school: String?,
-    var studentId: Long?,
-    var studentName: String?,
-    var studentInstitution: String?,
-    var studentClassId: Long?,
-    var GuideData: GuideData?
-)
-
-data class GuideChoice(
-    var studentClassId: Long?,
-    var studentDormitory: Long?
-)
-
-data class GuideData(
-    var studentId: Long?
-)
 
 data class School(
     var school_id: Int,
     var school_name: String
 )
 
-data class College(
-    var school_id: Int,
-    var guide_college: String
-)
 
 data class SchoolGuideTime(
     val school_id: Int?,

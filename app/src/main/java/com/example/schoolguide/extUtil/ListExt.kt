@@ -31,6 +31,10 @@ fun <T> List<T>.copyToString(block:(T) -> String): List<String> {
     return temp
 }
 
+/**
+ *  MutableList的链式add调用
+ *  mutable.addChain().addChain()
+ */
 fun <T> MutableList<T>.addChain(element: T): MutableList<T> {
     this.add(element)
     return this

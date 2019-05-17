@@ -121,6 +121,9 @@
     <string name="finish_change">结束</string>
     <string name="delete_success">删除成功</string>
     <string name="dormitory_select">请选择宿舍</string>
+    <string name="phone_and_password_null_error">手机号或密码不能为空</string>
+    <string name="add_success">新增成功</string>
+    <string name="update_success">修改成功</string>
 
     <!--dialog-->
     <string name="user_nickname">昵称</string>

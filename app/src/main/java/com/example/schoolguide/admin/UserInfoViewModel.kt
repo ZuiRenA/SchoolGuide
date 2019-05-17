@@ -4,10 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Log
 import com.example.schoolguide.extUtil.callback
-import com.example.schoolguide.model.Dormitory
-import com.example.schoolguide.model.Id
-import com.example.schoolguide.model.School
-import com.example.schoolguide.model.isSuccess
+import com.example.schoolguide.model.*
 import com.example.schoolguide.network.RetrofitHelper
 import com.example.schoolguide.network.Server
 
@@ -15,6 +12,8 @@ class UserInfoViewModel: ViewModel() {
     var schoolListLiveData: MutableLiveData<isSuccess<List<School>>> = MutableLiveData()
     var collegeListLiveData: MutableLiveData<isSuccess<List<String>>> = MutableLiveData()
     var dormitoryListLiveData: MutableLiveData<isSuccess<List<Dormitory>>> = MutableLiveData()
+    var addUserLiveData: MutableLiveData<isSuccess<User>> = MutableLiveData()
+    var updataLiveData: MutableLiveData<isSuccess<User>> = MutableLiveData()
 
     fun getSchoolList() {
         RetrofitHelper.create(Server::class.java).schoolList().callback({
@@ -41,6 +40,24 @@ class UserInfoViewModel: ViewModel() {
             dormitoryListLiveData.value = null
         }) {
             dormitoryListLiveData.value = it.body()
+        }
+    }
+
+    fun addUser(user: User) {
+        RetrofitHelper.create(Server::class.java).register(user).callback({
+            Log.e("retrofit error:", "$it")
+            addUserLiveData.value = null
+        }) {
+            addUserLiveData.value = it.body()
+        }
+    }
+
+    fun updataUser(user: User) {
+        RetrofitHelper.create(Server::class.java).updateUser(user).callback({
+            Log.e("retrofit error:", "$it")
+            updataLiveData.value = null
+        }) {
+            updataLiveData.value = it.body()
         }
     }
 }

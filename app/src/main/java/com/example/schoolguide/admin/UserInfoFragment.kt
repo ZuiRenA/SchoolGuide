@@ -7,10 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -21,11 +21,14 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.mineView.BaseDialog
+import com.example.schoolguide.model.AddUserEvent
 import com.example.schoolguide.model.AdminFinishEvent
 import com.example.schoolguide.model.User
 import kotlinx.android.synthetic.main.base_toolbar.*
 import kotlinx.android.synthetic.main.fragment_user_info.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class UserInfoFragment : Fragment() {
 
@@ -43,6 +46,8 @@ class UserInfoFragment : Fragment() {
         private const val TYPE_SCHOOL = 2001
         private const val TYPE_COLLEGE = 2002
         private const val TYPE_DORMITORY = 2003
+        private const val TYPE_ADD = 2004
+        private const val TYPE_UPDATE = 2005
     }
 
     override fun onCreateView(
@@ -51,6 +56,7 @@ class UserInfoFragment : Fragment() {
     ): View? {
         viewModel = viewModelProvider()
         viewUser = viewModelProvider()
+        EventBus.getDefault().register(this)
         return inflater.inflate(R.layout.fragment_user_info, container, false)
     }
 
@@ -73,31 +79,64 @@ class UserInfoFragment : Fragment() {
         context?.let {
             mDialog = BaseDialog(it, R.layout.dialog_user_table)
             mDialog.addItemClickList(
-                    listOf(
-                        R.id.dialogUserFinish,
-                        R.id.dialogUserSchool, R.id.dialogUserCollege, R.id.dialogUserAssign,
-                        R.id.dialogUserDormitory
-                    )
-                ) { dialog, view ->
-                    when (view?.id) {
-                        R.id.dialogUserFinish -> {
-                            dialog.dismiss()
-                        }
-                        R.id.dialogUserSchool -> {
-                            viewUser.getSchoolList()
-                        }
-                        R.id.dialogUserCollege -> {
-                            viewUser.getCollegeList(1)
-                        }
-                        R.id.dialogUserDormitory -> {
-
-                        }
-                        R.id.dialogUserAssign -> {
-                            Log.d("dialog: ", "listener: Assign")
-                        }
+                listOf(
+                    R.id.dialogUserFinish,
+                    R.id.dialogUserSchool, R.id.dialogUserCollege, R.id.dialogUserAssign,
+                    R.id.dialogUserDormitory
+                )
+            ) { dialog, view ->
+                when (view?.id) {
+                    R.id.dialogUserFinish -> {
+                        dialog.dismiss()
+                    }
+                    R.id.dialogUserSchool -> {
+                        viewUser.getSchoolList()
+                    }
+                    R.id.dialogUserCollege -> {
+                        viewUser.getCollegeList(1)
+                    }
+                    R.id.dialogUserDormitory -> {
+                        viewUser.getDorList(1)
+                    }
+                    R.id.dialogUserAssign -> {
+                        addUser(dialog, TYPE_ADD)
                     }
                 }
+            }
                 .show()
+        }
+    }
+
+    private fun addUser(dialog: BaseDialog, type: Int) {
+        val nick = dialog.getView<EditText>(R.id.dialogUserNick)
+        val phone = dialog.getView<EditText>(R.id.dialogUserPhone)
+        val password = dialog.getView<EditText>(R.id.dialogUserPassword)
+        val school = dialog.getView<TextView>(R.id.dialogUserSchool)
+        val college = dialog.getView<TextView>(R.id.dialogUserCollege)
+        val name = dialog.getView<EditText>(R.id.dialogUserName)
+        val idCard = dialog.getView<EditText>(R.id.dialogUserIdCard)
+        val dor = dialog.getView<TextView>(R.id.dialogUserDormitory)
+
+        if (!phone.text.isNotNullAndEmpty() or !password.text.isNotNullAndEmpty()) {
+            context?.toast(getString(R.string.phone_and_password_null_error))
+            return
+        }
+
+        val user = User(
+            name = nick.text.toString(),
+            phone_number = phone.text.toString().toLong(),
+            password = password.text.toString(),
+            user_school = school.text.toString(),
+            user_college = college.text.toString(),
+            user_name = name.text.toString(),
+            user_id_card = idCard.text.toString(),
+            user_dormitory = dor.text.toString()
+        )
+
+        if (type == TYPE_ADD) {
+            viewUser.addUser(user)
+        } else if (type == TYPE_UPDATE) {
+            viewUser.updataUser(user)
         }
     }
 
@@ -106,10 +145,16 @@ class UserInfoFragment : Fragment() {
         val schoolView = mDialog.getView<TextView>(R.id.dialogUserSchool)
         val collegeView = mDialog.getView<TextView>(R.id.dialogUserCollege)
         val dormitoryView = mDialog.getView<TextView>(R.id.dialogUserDormitory)
-        val title = when(type) {
-            TYPE_SCHOOL -> { getString(R.string.school_select) }
-            TYPE_COLLEGE -> { getString(R.string.college_select)}
-            else -> { getString(R.string.dormitory_select) }
+        val title = when (type) {
+            TYPE_SCHOOL -> {
+                getString(R.string.school_select)
+            }
+            TYPE_COLLEGE -> {
+                getString(R.string.college_select)
+            }
+            else -> {
+                getString(R.string.dormitory_select)
+            }
         }
 
         AlertDialog.Builder(context)
@@ -122,7 +167,9 @@ class UserInfoFragment : Fragment() {
                     when (type) {
                         TYPE_SCHOOL -> schoolView.text = optionArray[index]
                         TYPE_COLLEGE -> collegeView.text = optionArray[index]
-                        TYPE_DORMITORY -> { dormitoryView.text = optionArray[index] }
+                        TYPE_DORMITORY -> {
+                            dormitoryView.text = optionArray[index]
+                        }
                     }
                 }
                 index = -1
@@ -170,6 +217,34 @@ class UserInfoFragment : Fragment() {
                 }
             }
         }
+
+        observerAction(viewUser.dormitoryListLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    pickDialog(TYPE_DORMITORY, response.respond.copyToString { it.dormitory_name })
+                }
+            }
+        }
+
+        observerAction(viewUser.addUserLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    context?.toast(getString(R.string.add_success))
+                    EventBus.getDefault().post(AddUserEvent())
+                    mDialog.dismiss()
+                }
+            }
+        }
+
+        observerAction(viewUser.updataLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    context?.toast(getString(R.string.update_success))
+                    EventBus.getDefault().post(AddUserEvent())
+                    mDialog.dismiss()
+                }
+            }
+        }
     }
 
     private fun initRecycler() {
@@ -190,7 +265,8 @@ class UserInfoFragment : Fragment() {
             view.showMorePopWindowMenu(dataList = listOf("修改", "删除")) { _, _, positionInner, pop ->
                 when (positionInner) {
                     0 -> {
-                        TODO("增加user的修改")
+                        showChangeDialog(mAdapter.data[position])
+                        pop?.hide()
                     }
                     1 -> {
                         viewModel.deleteUser(mAdapter.data[position].phone_number)
@@ -199,6 +275,59 @@ class UserInfoFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showChangeDialog(user: User) {
+        mDialog = BaseDialog(context!!, R.layout.dialog_user_table)
+        mDialog.init {
+            it.getView<EditText>(R.id.dialogUserNick).setText(user.name)
+            it.getView<EditText>(R.id.dialogUserPhone).apply {
+                setText(user.phone_number.toString())
+                isEnabled = false
+            }
+            it.getView<EditText>(R.id.dialogUserPassword).setText(user.password)
+            it.getView<TextView>(R.id.dialogUserSchool).text = user.user_school
+            it.getView<TextView>(R.id.dialogUserCollege).text = user.user_college
+            it.getView<EditText>(R.id.dialogUserName).setText(user.user_name)
+            it.getView<EditText>(R.id.dialogUserIdCard).setText(user.user_id_card)
+            it.getView<TextView>(R.id.dialogUserDormitory).text = user.user_dormitory
+
+        }.addItemClickList(
+            listOf(
+                R.id.dialogUserFinish,
+                R.id.dialogUserSchool, R.id.dialogUserCollege, R.id.dialogUserAssign,
+                R.id.dialogUserDormitory
+            )
+        ) { dialog, view ->
+            when (view?.id) {
+                R.id.dialogUserFinish -> {
+                    dialog.dismiss()
+                }
+                R.id.dialogUserSchool -> {
+                    viewUser.getSchoolList()
+                }
+                R.id.dialogUserCollege -> {
+                    viewUser.getCollegeList(1)
+                }
+                R.id.dialogUserDormitory -> {
+                    viewUser.getDorList(1)
+                }
+                R.id.dialogUserAssign -> {
+                    addUser(dialog, TYPE_UPDATE)
+                }
+            }
+        }
+            .show()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun finishEvent(event: AddUserEvent) {
+        viewModel.getUserTable()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }
 
