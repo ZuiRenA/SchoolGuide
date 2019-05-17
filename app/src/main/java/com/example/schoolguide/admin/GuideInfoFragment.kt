@@ -2,6 +2,7 @@ package com.example.schoolguide.admin
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,17 +11,22 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 
 import com.example.schoolguide.R
+import com.example.schoolguide.extUtil.observerAction
 import com.example.schoolguide.extUtil.onClick
 import com.example.schoolguide.extUtil.viewModelProvider
+import com.example.schoolguide.extUtil.yes
 import com.example.schoolguide.mineView.BaseDialog
 import com.example.schoolguide.model.AdminFinishEvent
 import com.example.schoolguide.model.SchoolGuideTime
 import kotlinx.android.synthetic.main.base_toolbar.*
+import kotlinx.android.synthetic.main.fragment_guide_info.*
 import org.greenrobot.eventbus.EventBus
 
 class GuideInfoFragment : Fragment() {
 
     private lateinit var viewModel: AdminViewModel
+    private lateinit var item: MutableList<SchoolGuideTime>
+    private lateinit var mAdapter: GuideTimeTableAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +39,34 @@ class GuideInfoFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        initRecycler()
+
         baseToolbar.setNavigationOnClickListener { EventBus.getDefault().post(AdminFinishEvent()) }
         baseToolbarTitle.text = getString(R.string.guide_table)
-        baseToolbarTV.visibility = View.VISIBLE
-        baseToolbarTV.text = getString(R.string.change_table)
-        baseToolbarTV.onClick {
 
+        initNetwork()
+        viewModel.getGuideTime(1)
+    }
+
+    private fun initRecycler() {
+        val mLayoutManager = LinearLayoutManager(context)
+        mLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        guideRecycler.layoutManager = mLayoutManager
+
+        item = mutableListOf()
+        mAdapter = GuideTimeTableAdapter(R.layout.item_guide_table, item)
+        guideRecycler.adapter = mAdapter
+    }
+
+    private fun initNetwork() {
+        observerAction(viewModel.guideTimeLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    item = response.respond as MutableList<SchoolGuideTime>
+                    mAdapter.addData(item)
+                    mAdapter.notifyDataSetChanged()
+                }
+            }
         }
     }
 
@@ -50,6 +78,9 @@ class GuideInfoFragment : Fragment() {
 
 class GuideTimeTableAdapter(resId: Int, data: List<SchoolGuideTime>): BaseQuickAdapter<SchoolGuideTime, BaseViewHolder>(resId, data) {
     override fun convert(helper: BaseViewHolder?, item: SchoolGuideTime?) {
-
+        helper?.apply {
+            setText(R.id.guideCollegeName, item?.guide_college)
+            setText(R.id.guideCollegeTime, "${item?.guide_time_one} - ${item?.guide_time_two}")
+        }
     }
 }

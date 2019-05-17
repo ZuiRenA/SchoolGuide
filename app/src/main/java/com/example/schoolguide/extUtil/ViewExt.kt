@@ -11,7 +11,7 @@ import com.example.schoolguide.util.PopupWindowList
 @SuppressLint("StaticFieldLeak")
 private var popWindow: PopupWindowList? = null
 
-fun View.showMorePopWindowMenu(dataList: List<String>, block:(parent: AdapterView<*>, view: View, position: Int, id: Long) -> Unit) {
+fun View.showMorePopWindowMenu(dataList: List<String>, block:(parent: AdapterView<*>, view: View, position: Int, popupWindow: PopupWindowList?) -> Unit) {
     if (popWindow == null) {
         popWindow = PopupWindowList(this.context)
     }
@@ -21,8 +21,8 @@ fun View.showMorePopWindowMenu(dataList: List<String>, block:(parent: AdapterVie
         setItemData(dataList)
         setModal(true)
         show()
-        setOnItemClickListener { parent, view, position, id ->
-            block(parent, view, position, id)
+        setOnItemClickListener { parent, view, position, _ ->
+            block(parent, view, position, popWindow)
         }
     }
 }

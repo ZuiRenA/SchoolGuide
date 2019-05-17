@@ -28,7 +28,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun guideTime(id: Int) {
-        RetrofitHelper.create(Server::class.java).guideTImeList(id)
+        RetrofitHelper.create(Server::class.java).guideTimeList(id)
             .enqueue(object : Callback<isSuccess<List<SchoolGuideTime>>> {
                 override fun onFailure(call: Call<isSuccess<List<SchoolGuideTime>>>, t: Throwable) {
                     guideTimeLiveData?.value = null

@@ -42,6 +42,7 @@
                 android:paddingEnd="15dp"
                 android:background="@drawable/change_password_edit_three"
                 android:hint="@string/user_phone"
+                android:inputType="phone"
                 android:textSize="14sp"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
@@ -135,12 +136,13 @@
                 app:layout_constraintEnd_toEndOf="@+id/dialogUserName"
                 app:layout_constraintTop_toBottomOf="@+id/dialogUserName"/>
 
-        <EditText
+        <TextView
                 android:id="@+id/dialogUserDormitory"
                 android:background="@drawable/change_password_edit_two"
                 android:hint="@string/user_dormitory"
                 android:textColorHint="@color/default_text_view_color"
                 android:textSize="14sp"
+                android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:layout_width="0dp"
@@ -150,6 +152,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/dialogUserIdCard"/>
 
 
+        <ImageView
+                android:src="@drawable/more_pull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/dialogUserDormitory"
+                app:layout_constraintTop_toTopOf="@+id/dialogUserDormitory"
+                app:layout_constraintBottom_toBottomOf="@+id/dialogUserDormitory" android:layout_marginEnd="8dp"/>
         <Button
                 android:id="@+id/dialogUserAssign"
                 android:layout_width="0dp"

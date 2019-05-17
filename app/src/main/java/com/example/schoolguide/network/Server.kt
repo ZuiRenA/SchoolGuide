@@ -31,7 +31,7 @@ interface Server {
     fun uploadLetterCA(@Body letter: Letter): Call<isSuccess<User>>
 
     @GET("guideTime/{id}")
-    fun guideTImeList(@Path("id") id: Int): Call<isSuccess<List<SchoolGuideTime>>>
+    fun guideTimeList(@Path("id") id: Int): Call<isSuccess<List<SchoolGuideTime>>>
 
     @GET("message/{phone}")
     fun sendMessage(@Path("phone") phone: String): Call<isSuccess<Int>>
@@ -47,4 +47,13 @@ interface Server {
 
     @GET("userTable")
     fun userTable(): Call<isSuccess<List<User>>>
+
+    @GET("delete/user/{phone}")
+    fun deleteUser(@Path("phone") phone: Long): Call<isSuccess<Void>>
+
+    @GET("delete/college/{name}")
+    fun deleteGuideTime(@Path("name") name: String): Call<isSuccess<Void>>
+
+    @GET("delete/dormitory/{id}")
+    fun deleteDormitory(@Path("id") id: Int): Call<isSuccess<Void>>
 }

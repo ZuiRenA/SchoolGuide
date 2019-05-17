@@ -118,6 +118,9 @@
     <string name="dormitory_table">宿舍表</string>
     <string name="add_table">新增</string>
     <string name="change_table">修改</string>
+    <string name="finish_change">结束</string>
+    <string name="delete_success">删除成功</string>
+    <string name="dormitory_select">请选择宿舍</string>
 
     <!--dialog-->
     <string name="user_nickname">昵称</string>

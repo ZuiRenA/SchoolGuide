@@ -1,5 +1,7 @@
 package com.example.schoolguide.admin
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,7 +11,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -31,11 +32,17 @@ class UserInfoFragment : Fragment() {
     private lateinit var mAdapter: UserTableAdapter
     private lateinit var item: MutableList<User>
     private lateinit var viewModel: AdminViewModel
-    private var userNick: String? = null
+    private lateinit var viewUser: UserInfoViewModel
+    private lateinit var mDialog: BaseDialog
+    private var index = -1
 
     companion object {
         @JvmStatic
         fun newInstance() = UserInfoFragment()
+
+        private const val TYPE_SCHOOL = 2001
+        private const val TYPE_COLLEGE = 2002
+        private const val TYPE_DORMITORY = 2003
     }
 
     override fun onCreateView(
@@ -43,6 +50,7 @@ class UserInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = viewModelProvider()
+        viewUser = viewModelProvider()
         return inflater.inflate(R.layout.fragment_user_info, container, false)
     }
 
@@ -63,23 +71,26 @@ class UserInfoFragment : Fragment() {
 
     private fun dialogShow() {
         context?.let {
-            BaseDialog(it, R.layout.dialog_user_table)
-                .init {
-
-                }
-                .addItemClickList(
+            mDialog = BaseDialog(it, R.layout.dialog_user_table)
+            mDialog.addItemClickList(
                     listOf(
                         R.id.dialogUserFinish,
-                        R.id.dialogUserSchool, R.id.dialogUserCollege, R.id.dialogUserAssign
+                        R.id.dialogUserSchool, R.id.dialogUserCollege, R.id.dialogUserAssign,
+                        R.id.dialogUserDormitory
                     )
                 ) { dialog, view ->
                     when (view?.id) {
-                        R.id.dialogUserFinish -> { dialog.dismiss() }
+                        R.id.dialogUserFinish -> {
+                            dialog.dismiss()
+                        }
                         R.id.dialogUserSchool -> {
-                            Log.d("dialog: ", "listener: School")
+                            viewUser.getSchoolList()
                         }
                         R.id.dialogUserCollege -> {
-                            Log.d("dialog: ", "listener: College")
+                            viewUser.getCollegeList(1)
+                        }
+                        R.id.dialogUserDormitory -> {
+
                         }
                         R.id.dialogUserAssign -> {
                             Log.d("dialog: ", "listener: Assign")
@@ -90,13 +101,72 @@ class UserInfoFragment : Fragment() {
         }
     }
 
+    private fun pickDialog(type: Int, optionList: List<String>) {
+        val optionArray = optionList.copyToArray()
+        val schoolView = mDialog.getView<TextView>(R.id.dialogUserSchool)
+        val collegeView = mDialog.getView<TextView>(R.id.dialogUserCollege)
+        val dormitoryView = mDialog.getView<TextView>(R.id.dialogUserDormitory)
+        val title = when(type) {
+            TYPE_SCHOOL -> { getString(R.string.school_select) }
+            TYPE_COLLEGE -> { getString(R.string.college_select)}
+            else -> { getString(R.string.dormitory_select) }
+        }
+
+        AlertDialog.Builder(context)
+            .setTitle(title)
+            .setSingleChoiceItems(optionArray, -1) { _: DialogInterface?, which: Int ->
+                index = which
+            }
+            .setPositiveButton(R.string.assign) { dialog, _ ->
+                if (index != -1) {
+                    when (type) {
+                        TYPE_SCHOOL -> schoolView.text = optionArray[index]
+                        TYPE_COLLEGE -> collegeView.text = optionArray[index]
+                        TYPE_DORMITORY -> { dormitoryView.text = optionArray[index] }
+                    }
+                }
+                index = -1
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+                index = -1
+                dialog.dismiss()
+            }
+            .show()
+    }
+
     private fun initNetwork() {
         observerAction(viewModel.userTableLiveData) {
             it?.let { response ->
                 response.isSuccess.yes {
                     item = it.respond as MutableList<User>
-                    mAdapter.addData(item)
+                    mAdapter.removeDataToNew(item)
                     mAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        observerAction(viewModel.deleteUserLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    context?.toast(getString(R.string.delete_success))
+                    viewModel.getUserTable()
+                }
+            }
+        }
+
+        observerAction(viewUser.schoolListLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    pickDialog(TYPE_SCHOOL, response.respond.copyToString { it.school_name })
+                }
+            }
+        }
+
+        observerAction(viewUser.collegeListLiveData) {
+            it?.let { response ->
+                response.isSuccess.yes {
+                    pickDialog(TYPE_COLLEGE, response.respond)
                 }
             }
         }
@@ -116,14 +186,15 @@ class UserInfoFragment : Fragment() {
         mAdapter = UserTableAdapter(R.layout.item_user_table, item)
         userRecycler.adapter = mAdapter
 
-        mAdapter.setOnItemChildClickListener { _, view, _ ->
-            view.showMorePopWindowMenu(dataList = listOf("修改", "删除")) { _, _, positionInner, _ ->
-                when(positionInner) {
+        mAdapter.setOnItemChildClickListener { _, view, position ->
+            view.showMorePopWindowMenu(dataList = listOf("修改", "删除")) { _, _, positionInner, pop ->
+                when (positionInner) {
                     0 -> {
-                        context?.toast("修改")
+                        TODO("增加user的修改")
                     }
                     1 -> {
-                        context?.toast("删除")
+                        viewModel.deleteUser(mAdapter.data[position].phone_number)
+                        pop?.hide()
                     }
                 }
             }
