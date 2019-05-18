@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent"
                                              xmlns:app="http://schemas.android.com/apk/res-auto"
                                              android:background="@color/white">
@@ -14,5 +14,119 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"/>
+
+    <EditText
+            android:id="@+id/dialogDorNumber"
+            android:background="@drawable/change_password_edit_one"
+            android:hint="@string/dor_number"
+            android:textColorHint="@color/default_text_view_color"
+            android:textSize="14sp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/dialogDorAddFinish" android:layout_marginStart="15dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="15dp"/>
+
+    <TextView
+            android:id="@+id/dialogDorManOne"
+            android:background="@drawable/change_password_edit_three"
+            android:hint="@string/select_dor_people"
+            android:paddingStart="15dp"
+            android:textColorHint="@color/default_text_view_color"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@+id/dialogDorNumber"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorNumber"
+            app:layout_constraintTop_toBottomOf="@+id/dialogDorNumber"/>
+
+    <TextView
+            android:id="@+id/dialogDorManTwo"
+            android:background="@drawable/change_password_edit_three"
+            android:hint="@string/select_dor_people"
+            android:paddingStart="15dp"
+            android:textColorHint="@color/default_text_view_color"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@+id/dialogDorManOne"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorManOne"
+            app:layout_constraintTop_toBottomOf="@+id/dialogDorManOne"/>
+
+    <TextView
+            android:id="@+id/dialogDorManThree"
+            android:background="@drawable/change_password_edit_three"
+            android:hint="@string/select_dor_people"
+            android:paddingStart="15dp"
+            android:textColorHint="@color/default_text_view_color"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@+id/dialogDorManTwo"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorManTwo"
+            app:layout_constraintTop_toBottomOf="@+id/dialogDorManTwo"/>
+
+    <TextView
+            android:id="@+id/dialogDorManFour"
+            android:background="@drawable/change_password_edit_two"
+            android:hint="@string/select_dor_people"
+            android:paddingStart="15dp"
+            android:textColorHint="@color/default_text_view_color"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toBottomOf="@+id/dialogDorManThree"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorManThree"
+            app:layout_constraintStart_toStartOf="@+id/dialogDorManThree"/>
+
+
+    <Button
+            android:id="@+id/dialogDorAssign"
+            android:layout_width="0dp"
+            android:background="@drawable/change_password_btn"
+            android:layout_height="60dp"
+            android:textColor="@color/change_password_btn"
+            android:text="@string/assign"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="20dp"
+            android:layout_marginStart="15dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="15dp" app:layout_constraintEnd_toEndOf="parent"/>
+    <ImageView
+            android:src="@drawable/more_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView15"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorManOne" android:layout_marginEnd="15dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/dialogDorManOne"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/dialogDorManTwo"/>
+    <ImageView
+            android:src="@drawable/more_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView16"
+            app:layout_constraintBottom_toTopOf="@+id/dialogDorManThree"
+            app:layout_constraintTop_toTopOf="@+id/dialogDorManTwo"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorManTwo" android:layout_marginEnd="15dp"/>
+    <ImageView
+            android:src="@drawable/more_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView18" app:layout_constraintBottom_toTopOf="@+id/dialogDorManFour"
+            app:layout_constraintEnd_toEndOf="@+id/dialogDorManThree"
+            app:layout_constraintTop_toTopOf="@+id/dialogDorManThree" android:layout_marginEnd="15dp"/>
+    <ImageView
+            android:src="@drawable/more_pull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView19" app:layout_constraintEnd_toEndOf="@+id/dialogDorManFour"
+            app:layout_constraintBottom_toBottomOf="@+id/dialogDorManFour"
+            app:layout_constraintTop_toTopOf="@+id/dialogDorManFour" android:layout_marginEnd="15dp"/>
 
 </android.support.constraint.ConstraintLayout>

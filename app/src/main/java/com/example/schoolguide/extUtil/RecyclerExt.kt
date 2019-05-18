@@ -20,5 +20,6 @@ fun <T: View> BaseViewHolder.action(@IdRes viewId: Int, action:(T) -> Unit): Bas
 fun <T, K: BaseViewHolder> BaseQuickAdapter<T, K>.removeDataToNew(dataNew: List<T>): List<T> {
     this.data.clear()
     this.addData(dataNew)
+    this.notifyDataSetChanged()
     return this.data
 }

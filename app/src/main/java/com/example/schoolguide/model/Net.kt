@@ -10,7 +10,7 @@ data class Id(
 data class isSuccess <T>(
     val isSuccess: Boolean,
     val respond: T,
-    val errorReason: String? = ""
+    var errorReason: String? = ""
 )
 
 data class SchoolInfo(

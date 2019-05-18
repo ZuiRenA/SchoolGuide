@@ -120,8 +120,7 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
             it?.let { response ->
                 response.isSuccess.yes {
                     guideTimeList = it.respond as MutableList<SchoolGuideTime>
-                    mAdapter.addData(guideTimeList)
-                    mAdapter.notifyDataSetChanged()
+                    mAdapter.removeDataToNew(guideTimeList)
                 }.otherwise { context?.toast(response.errorReason ?: "") }
             }
         }

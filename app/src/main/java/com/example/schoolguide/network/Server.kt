@@ -62,4 +62,10 @@ interface Server {
 
     @POST("update/school")
     fun updateSchool(@Body school: SchoolInfo): Call<isSuccess<SchoolInfo>>
+
+    @POST("insert/dormitory")
+    fun insertDor(@Body dormitory: Dormitory): Call<isSuccess<Void>>
+
+    @POST("update/dormitory")
+    fun updateDor(@Body dormitory: Dormitory): Call<isSuccess<Void>>
 }

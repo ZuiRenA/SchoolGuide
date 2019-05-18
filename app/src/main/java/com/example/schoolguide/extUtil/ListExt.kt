@@ -39,3 +39,26 @@ fun <T> MutableList<T>.addChain(element: T): MutableList<T> {
     this.add(element)
     return this
 }
+
+fun <T> List<T>.splitEmpty(): List<T> {
+    val temp = mutableListOf<T>()
+    this.forEach {
+        if (it.toString().isNotNullAndEmpty()) {
+            temp.add(it)
+        }
+    }
+    return temp
+}
+
+fun <T> List<T>.replaceNullToEmpty(): List<String> {
+    val temp = mutableListOf<String>()
+    this.forEach {
+        if (it.toString().isNotNullAndEmpty()) {
+            temp.add(it.toString())
+        } else {
+            temp.add("")
+        }
+    }
+
+    return temp
+}

@@ -54,10 +54,7 @@ class MineFragment : BaseFragment() {
 
         LoginUtil.user?.user_permission?.let {
             if (it.toBoolean()) {
-                item.add(
-                    Mine(name = getString(R.string.admin_mode),
-                        icon = R.drawable.admin
-                ))
+                item.add(Mine(name = getString(R.string.admin_mode), icon = R.drawable.admin))
             }
         }
 

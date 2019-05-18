@@ -124,6 +124,10 @@
     <string name="phone_and_password_null_error">手机号或密码不能为空</string>
     <string name="add_success">新增成功</string>
     <string name="update_success">修改成功</string>
+    <string name="dor_number">宿舍号</string>
+    <string name="select_dor_people">选择人员</string>
+    <string name="select_man">请选择人员</string>
+    <string name="dor_number_error">宿舍号不能为空</string>
 
     <!--dialog-->
     <string name="user_nickname">昵称</string>

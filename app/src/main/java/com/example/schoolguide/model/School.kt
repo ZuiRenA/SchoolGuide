@@ -16,8 +16,8 @@ data class School(
 data class SchoolGuideTime(
     val school_id: Int?,
     val guide_college: String,
-    val guide_time_one: String,
-    val guide_time_two: String
+    var guide_time_one: String,
+    var guide_time_two: String
 )
 
 data class Dormitory(
