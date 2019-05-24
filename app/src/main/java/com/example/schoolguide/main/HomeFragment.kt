@@ -260,6 +260,7 @@ class HomeFragment : BaseFragment(), OnDateSetListener {
             }
         })
 
+        Log.d("timeList：","$rightIndex")
         mAdapter.removeAllItem()
         SearchTimeUtil.rightIndexAction(rightIndex) {
             mAdapter.addData(guideTimeList[it])

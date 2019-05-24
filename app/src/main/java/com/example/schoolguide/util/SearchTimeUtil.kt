@@ -5,6 +5,7 @@ import com.example.schoolguide.AppContext
 import com.example.schoolguide.R
 import com.example.schoolguide.extUtil.*
 import com.example.schoolguide.model.GuideTime
+import java.util.*
 
 object SearchTimeUtil {
 
@@ -28,18 +29,23 @@ object SearchTimeUtil {
         val temp = mutableListOf<Int>()
         end.forEachIndexed { index, guideTime ->
             if (select.year <= guideTime.year) {
-                if (select.month <= guideTime.month) {
-                    if (select.day <= guideTime.day) {
-                        if (select.year >= start[index].year) {
-                            if (select.month >= start[index].month) {
-                                if (select.day >= start[index].day)
-                                    temp.add(index)
+                if (select.month < guideTime.month) {
+                    if (select.month == guideTime.month) {
+                        if (select.day > guideTime.day)
+                            return@forEachIndexed
+                    }
+
+                    if (select.year >= start[index].year) {
+                        if (select.month >= start[index].month) {
+                            if(select.day >= start[index].day) {
+                                temp.add(index)
                             }
                         }
                     }
                 }
             }
         }
+
         return temp
     }
 
